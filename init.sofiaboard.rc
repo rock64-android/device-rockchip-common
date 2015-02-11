@@ -128,9 +128,6 @@ on boot
      write /proc/sys/net/core/wmem_max 1048576
      write /proc/sys/net/ipv4/tcp_mem  "83520 111360 2097152"
 
-# chmod data permisson temperory for video debug, should be removed later.
-    chmod 0777 /data
-
 on charger
     class_start charger
     start console
