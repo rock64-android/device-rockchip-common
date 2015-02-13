@@ -130,6 +130,7 @@ on boot
 
 on charger
     class_start charger
+    start crashlogd
     start console
 
 service batteryserver /charger
@@ -350,6 +351,11 @@ on early-boot
     mkdir /data/logs
     chown system log /data/logs
     chmod 0770 /data/logs 
+
+# crash and log services
+service crashlogd /system/bin/crashlogd
+    class main
+    user root
 
 on property:ro.debuggable=1
     start apk_logfs
