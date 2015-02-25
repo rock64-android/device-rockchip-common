@@ -184,7 +184,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.enable_boot_charger_mode=0
 
-PRODUCT_CHARACTERISTICS := tablet
+PRODUCT_CHARACTERISTICS ?= tablet
 
 # audio lib
 PRODUCT_PACKAGES += \
