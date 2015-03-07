@@ -1,3 +1,10 @@
 type metadata_file, file_type;
 type camdata_file, file_type;
 type ru_file, file_type;
+type nvm_fs_partition_file, file_type;
+type fm_device, dev_type;
+type vmodem_device, dev_type;
+type nv_device, dev_type;
+type nvm_device, dev_type;
+type mvpipe-at_device, dev_type;
+type bluetooth_device, dev_type;

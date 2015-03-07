@@ -1,0 +1,13 @@
+allow nvm_fs_partition_file self:filesystem { associate };
+allow setup_fs_nvm system_file:file rx_file_perms;
+allow setup_fs_nvm block_device:blk_file { read open };
+allow setup_fs_nvm rootfs:dir mounton;
+allow setup_fs_nvm kernel:process setsched;
+allow setup_fs_nvm labeledfs:filesystem { relabelfrom mount unmount remount };
+allow setup_fs_nvm system_data_file:dir create_dir_perms;
+allow setup_fs_nvm shell_exec:file rx_file_perms;
+allow setup_fs_nvm rootfs:dir mounton;
+allow setup_fs_nvm kernel:process setsched;
+allow setup_fs_nvm self:capability { sys_admin };
+allow setup_fs_nvm nvm_fs_partition_file:dir mounton;
+allow setup_fs_nvm nvm_fs_partition_file:filesystem { relabelto relabelfrom associate mount unmount remount };

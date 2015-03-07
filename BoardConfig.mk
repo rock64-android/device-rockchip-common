@@ -118,7 +118,21 @@ BOARD_SEPOLICY_UNION ?=     \
         system_server.te    \
         uncrypt.te          \
         vold.te             \
-        zygote.te
+	init_shell.te	    \
+	servicemanager.te   \
+	radio.te	    \
+	setup_fs_nvm.te     \
+	apk_logfs.te	    \
+	rpcServer.te        \
+        rpcNotifier.te      \
+	pekallfmrserver.te  \
+	fmd.te              \
+	crashlogd.te        \
+	lbsd.te             \
+        rpc-daemon.te       \
+        nvm_uagent.te       \
+	untrusted_app.te    \
+	zygote.te
 
 
 # Recovery
@@ -127,7 +141,6 @@ TARGET_ROCHCHIP_RECOVERY ?= true
 
 # to flip screen in recovery 
 BOARD_HAS_FLIPPED_SCREEN ?= false
-
 # To use bmp as kernel logo, uncomment the line below to use bgra 8888 in recovery
 #TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_ROCKCHIP_PCBATEST ?= false

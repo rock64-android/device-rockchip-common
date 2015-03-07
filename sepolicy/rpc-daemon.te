@@ -1,0 +1,11 @@
+allow rpc-daemon system_file:file rx_file_perms;
+allow rpc-daemon rpcServer:unix_stream_socket { connectto };
+allow rpc-daemon system_data_file:sock_file { create write };
+allow rpc-daemon system_data_file:dir { add_name write };
+allow rpc-daemon self:capability { dac_override };
+allow rpc-daemon system_data_file:file { write open create };
+allow rpc-daemon system_data_file:dir { create setattr add_name remove_name rmdir rename open read write };
+allow rpc-daemon system_data_file:sock_file { unlink };
+allow rpc-daemon fm_device:chr_file rw_file_perms;
+allow rpc-daemon mvpipe-at_device:chr_file rw_file_perms;
+

@@ -1,0 +1,12 @@
+type rpcNotifier, domain;
+type rpcNotifier_exec, exec_type, file_type;
+
+init_daemon_domain(rpcNotifier)
+
+allow rpcNotifier system_file:file rx_file_perms;
+allow rpcNotifier shell_exec:file { execute read open execute_no_trans };
+allow rpcNotifier init:unix_stream_socket { connectto };
+allow rpcNotifier property_socket:sock_file { write };
+allow rpcNotifier default_prop:property_service set;
+allow rpcNotifier system_data_file:dir { create setattr add_name remove_name rmdir rename read write };
+allow rpcNotifier system_data_file:file { create setattr append write link unlink rename open }; 

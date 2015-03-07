@@ -15,6 +15,18 @@
 
 /system/bin/akmd     u:object_r:akmd_exec:s0
 
+/system/bin/logcat   u:object_r:apk_logfs_exec:s0
+/system/bin/rpcNotifier u:object_r:rpcNotifier_exec:s0
+/system/bin/crashlogd u:object_r:crashlogd_exec:s0
+
+/nvm_fs_partition(/.*)?      u:object_r:nvm_fs_partition_file:s0
+/dev/fmdev_device    u:object_r:fm_device:s0
+/dev/vmodem   	     u:object_r:vmodem_device:s0
+/dev/nvmdev    	     u:object_r:nvm_device:s0
+/dev/mvpipe-at[0-9]? 	     u:object_r:mvpipe-at_device:s0
+/dev/ttyGNSS[0-9]?  	     u:object_r:gps_device:s0
+/dev/ttyBT[0-9]?  	     u:object_r:bluetooth_device:s0
+/dev/radio[0-9]?  	     u:object_r:radio_device:s0
 /metadata(/.*)?      u:object_r:metadata_file:s0
 /dev/mma8452_daemon  u:object_r:sensors_device:s0
 /data/camera(/.*)?   u:object_r:camdata_file:s0
