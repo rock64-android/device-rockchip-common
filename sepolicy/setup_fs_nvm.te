@@ -1,6 +1,7 @@
 allow nvm_fs_partition_file self:filesystem { associate };
 allow setup_fs_nvm system_file:file rx_file_perms;
 allow setup_fs_nvm block_device:blk_file { read open };
+allow setup_fs_nvm block_device:dir search;
 allow setup_fs_nvm rootfs:dir mounton;
 allow setup_fs_nvm kernel:process setsched;
 allow setup_fs_nvm labeledfs:filesystem { relabelfrom mount unmount remount };
