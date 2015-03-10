@@ -53,6 +53,14 @@ on post-fs-data
     chown dhcp dhcp /data/misc/dhcp
     setprop vold.post_fs_data_done 1
 
+	# Set cpufreq boost for ondemand governor
+    chown system system /sys/devices/system/cpu/cpufreq/ondemand/boost_freq
+    chmod 0660 /sys/devices/system/cpu/cpufreq/ondemand/boost_freq
+    chown system system /sys/devices/system/cpu/cpufreq/ondemand/boost_pulse
+    chmod 0660 /sys/devices/system/cpu/cpufreq/ondemand/boost_pulse
+    chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+    chmod 0660 /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+
     # Set this property to enable Thermal service
     setprop persist.service.thermal 1
 
