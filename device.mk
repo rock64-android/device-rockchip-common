@@ -111,6 +111,12 @@ PRODUCT_COPY_FILES += \
 #$_rbox_$_modify_$_chenzhi_20120309
     $(call inherit-product, external/rp-pppoe/pppoe-copy.mk)
 
+ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
+include device/rockchip/common/samba/rk31_samba.mk
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.box.samba.rc:root/init.box.samba.rc
+endif
+
 endif
 
 ifeq ($(filter MediaTek_mt7601 MediaTek RealTek Espressif, $(strip $(BOARD_CONNECTIVITY_VENDOR))), )
