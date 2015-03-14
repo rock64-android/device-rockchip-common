@@ -87,11 +87,19 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf \
     dhcpcd.conf
+ifeq ($(strip $(TARGET_ARCH)), arm)
 
 PRODUCT_PACKAGES += \
     libpppoe-jni \
     pppoe-service \
 
+#$_rbox_$_modify_$_chenzhi_20120309: add android.software.pppoe.xml
+PRODUCT_COPY_FILES += \
+       frameworks/native/data/etc/android.software.pppoe.xml:system/etc/permissions/android.software.pppoe.xml
+#$_rbox_$_modify_$_chenzhi_20120309
+    $(call inherit-product, external/rp-pppoe/pppoe-copy.mk)
+
+endif
 
 ifeq ($(filter MediaTek_mt7601 MediaTek RealTek Espressif, $(strip $(BOARD_CONNECTIVITY_VENDOR))), )
 PRODUCT_COPY_FILES += \
@@ -420,11 +428,6 @@ PRODUCT_COPY_FILES += \
     $(call copyNfcFirmware, BCM43341NFCB0_002.001.009.0021.0000_Generic_I2C_NCD_Signed_configdata.ncd) \
     $(call copyNfcFirmware, BCM43341NFCB0_002.001.009.0021.0000_Generic_PreI2C_NCD_Signed_configdata.ncd)
 endif
-#$_rbox_$_modify_$_chenzhi_20120309: add android.software.pppoe.xml
-PRODUCT_COPY_FILES += \
-       frameworks/native/data/etc/android.software.pppoe.xml:system/etc/permissions/android.software.pppoe.xml
-#$_rbox_$_modify_$_chenzhi_20120309
-    $(call inherit-product, external/rp-pppoe/pppoe-copy.mk)
 
 # for realtek bluetooth
 PRODUCT_PACKAGES += \
