@@ -17,7 +17,15 @@ on fs
 on init
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
 on boot
-	write /sys/class/android_usb/android0/f_mass_storage/inquiry_string $ro.product.usbfactory
+    write /sys/class/android_usb/f_acm/port0/data_string at_commands
+    write /sys/class/android_usb/f_acm/port0/iad_bFunctionProtocol 0
+    write /sys/class/android_usb/f_acm/port0/ctrl_bInterfaceProtocol 0
+    write /sys/class/android_usb/f_acm/port1/data_string oct_trace
+    write /sys/class/android_usb/f_acm/port1/iad_bFunctionProtocol 0
+    write /sys/class/android_usb/f_acm/port1/ctrl_bInterfaceProtocol 0
+    write /sys/class/android_usb/f_acm/port2/data_string gti_ipicom
+    write /sys/class/android_usb/f_acm/port2/iad_bFunctionProtocol 0
+    write /sys/class/android_usb/f_acm/port2/ctrl_bInterfaceProtocol 0
 
 # Configurations specifically added (or modified) for Intel Mobile Communications
 # ===============================================================================
