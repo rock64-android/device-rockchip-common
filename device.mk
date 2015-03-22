@@ -91,7 +91,11 @@ ifeq ($(strip $(TARGET_ARCH)), arm)
 
 PRODUCT_PACKAGES += \
     libpppoe-jni \
-    pppoe-service 
+    pppoe-service \
+    pppoe \
+    pppoe-sniff \
+    pppoe-repay 
+ 
 PRODUCT_SYSTEM_SERVER_JARS += \
     pppoe-service 
 #$_rbox_$_modify_$_chenzhi_20120309: add android.software.pppoe.xml
