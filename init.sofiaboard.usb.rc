@@ -26,6 +26,7 @@ on boot
     write /sys/class/android_usb/f_acm/port2/data_string gti_ipicom
     write /sys/class/android_usb/f_acm/port2/iad_bFunctionProtocol 0
     write /sys/class/android_usb/f_acm/port2/ctrl_bInterfaceProtocol 0
+	write /sys/class/android_usb/android0/f_mass_storage/inquiry_string  1
 
 # Configurations specifically added (or modified) for Intel Mobile Communications
 # ===============================================================================
