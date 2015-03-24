@@ -117,6 +117,7 @@ on post-fs-data
     chown system system /sys/devices/system/cpu/cpu2/cpufreq/thermal_scaling_max_freq
     chown system system /sys/devices/system/cpu/cpu3/cpufreq/thermal_scaling_max_freq
     chown system system /sys/class/thermal/thermal_zone1/kernel
+    chown system system /sys/devices/soc0/e0000000.noc/ef010000.l2_noc/e2000000.ahb_per/e2e00000.gpu/pm_max_state
 
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/thermal_scaling_max_freq
     chmod 0664 /sys/devices/system/cpu/cpu1/cpufreq/thermal_scaling_max_freq
@@ -124,6 +125,7 @@ on post-fs-data
     chmod 0664 /sys/devices/system/cpu/cpu3/cpufreq/thermal_scaling_max_freq
     chmod 0664 /sys/class/mali/pm/max_freq_level
     chmod 0664 /sys/class/thermal/thermal_zone1/kernel
+    chmod 0664 /sys/devices/soc0/e0000000.noc/ef010000.l2_noc/e2000000.ahb_per/e2e00000.gpu/pm_max_state
 
 
     # backlight permission
