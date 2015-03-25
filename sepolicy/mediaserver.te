@@ -17,5 +17,3 @@ allow mediaserver rpc-daemon:unix_stream_socket { connectto };
 allow mediaserver nvm_fs_partition_file:dir { read write };
 allow mediaserver nvm_fs_partition_file:file { read open getattr write };
 allow mediaserver radio_device:chr_file rw_file_perms; 
-allow mediaserver nvm_fs_partition_file:dir search;
-allow mediaserver graphics_device:dir search;

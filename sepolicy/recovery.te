@@ -4,7 +4,7 @@ recovery_only(`
     allow recovery rootfs:dir rw_dir_perms;
     allow recovery rootfs:file create_file_perms;
     allow recovery sysfs_devices_system_cpu:file rw_file_perms;
-    allow recovery self:capability { mknod sys_boot };
+    allow recovery self:capability mknod;
     allow recovery usbfs:dir rw_dir_perms;
     allow recovery kernel:system module_request;
     allow recovery serial_device:chr_file rw_file_perms;
@@ -12,9 +12,6 @@ recovery_only(`
     allow recovery device:file rw_file_perms;
     allow recovery device:dir rw_dir_perms;
     allow recovery device:chr_file create_file_perms;
-    allow recovery console_device:chr_file create_file_perms;
-    allow recovery cache_file:dir { mounton };
-    allow recovery proc_sysrq:file rw_file_perms;
 
 	allow recovery ru_file:file execute_no_trans;
 	allow recovery ru_file:{ file lnk_file } { create_file_perms relabelfrom relabelto };
