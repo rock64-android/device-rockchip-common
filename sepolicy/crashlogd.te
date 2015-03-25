@@ -1,9 +1,0 @@
-
-allow crashlogd system_file:file rx_file_perms;
-allow crashlogd self:capability { dac_override sys_ptrace chown };
-allow crashlogd default_prop:property_service set;
-allow crashlogd init:unix_stream_socket { connectto };
-allow crashlogd property_socket:sock_file { write };
-allow crashlogd shell_exec:file rx_file_perms;
-allow crashlogd system_data_file:dir create_dir_perms;
-allow crashlogd system_data_file:file { open create setattr append write link unlink rename };

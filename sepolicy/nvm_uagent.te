@@ -1,5 +1,0 @@
-
-allow nvm_uagent system_file:file rx_file_perms;
-allow nvm_uagent nvm_fs_partition_file:dir { create_dir_perms relabelfrom relabelto read write };
-allow nvm_uagent fm_device:chr_file rw_file_perms;
-allow nvm_uagent nvm_device:chr_file rw_file_perms;

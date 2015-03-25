@@ -1,8 +1,0 @@
-allow rpcServer shell_exec:file rx_file_perms;
-allow rpcServer sysfs:file { write };
-allow rpcServer system_data_file:dir { write add_name remove_name rmdir rename setattr };
-allow rpcServer self:capability { dac_override };
-allow rpcServer system_data_file:sock_file { create unlink };
-allow rpcServer block_device:blk_file { open read };
-allow rpcServer fm_device:chr_file rw_file_perms;
-allow rpcServer vmodem_device:chr_file rw_file_perms;

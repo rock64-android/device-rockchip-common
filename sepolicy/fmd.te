@@ -1,6 +1,0 @@
-allow fmd system_file:file rx_file_perms;
-allow fmd system_data_file:sock_file { write };
-allow fmd system_data_file:dir { create setattr add_name remove_name rmdir rename read write open };
-allow fmd system_data_file:file  { create setattr append write link unlink rename read write open };
-allow fmd rpc-daemon:unix_stream_socket { connectto };
-allow fmd fm_device:chr_file rw_file_perms;
