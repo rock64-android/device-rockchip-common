@@ -1,5 +1,8 @@
+# Additional rules for init
 allow init self:capability sys_module;
-
+allow init radio_service:service_manager { add };
+allow init logcat_exec:file rx_file_perms;
+allow init toolbox_exec:file rx_file_perms;
 recovery_only(`
   domain_trans(init, rootfs, busybox)
 ')

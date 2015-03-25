@@ -1,3 +1,98 @@
+# Additional file_contexts
+
+
+# dcc (display controller)
+/dev/dcc                        u:object_r:gpu_device:s0
+
+# HW encoders/decoders
+/dev/vpu-dec                    u:object_r:vpu_device:s0
+/dev/vpu-enc                    u:object_r:vpu_device:s0
+
+# Bluetooth
+/dev/ttyBT(.*)                  u:object_r:tty_device:s0
+
+# logcat
+/system/bin/logcat              u:object_r:logcat_exec:s0
+
+# crashlogd
+/system/bin/crashlogd           u:object_r:crashlogd_exec:s0
+
+# rpc (Server, Notifier and daemon)
+/system/bin/rpcServer           u:object_r:rpc_exec:s0
+/system/bin/rpc-daemon          u:object_r:rpc_exec:s0
+/dev/vmodem                     u:object_r:radio_device:s0
+/dev/block/mmcblk0p7            u:object_r:rpc_block_device:s0
+/dev/mvpipe-(.*)                u:object_r:mvpipe_device:s0
+
+# TEE
+/dev/tee_rpc                    u:object_r:tee_rpc_device:s0
+
+# fmd
+/system/bin/fmd                 u:object_r:fmd_exec:s0
+/dev/fmdev_device               u:object_r:fmdev_device:s0
+
+# lbsd - gps domain
+/system/bin/lbsd                u:object_r:lbsd_exec:s0
+/system/bin/lbsd.sh             u:object_r:lbsd_exec:s0
+/dev/socket/lbsd                u:object_r:gps_socket:s0
+/dev/ttyGNSS0                   u:object_r:gps_device:s0
+
+# nvm
+#/nvm_fs_partition(/.*)?         u:object_r:nvm_data_file:s0
+/system/bin/nvm_useragent       u:object_r:nvm_exec:s0
+/system/bin/setup_fs_nvm        u:object_r:setup_fs_nvm_exec:s0
+/dev/nvmdev                     u:object_r:radio_device:s0
+#/dev/block/mmcblk0p8            u:object_r:nvm_block_device:s0
+#/dev/block/mmcblk0p9            u:object_r:nvm_block_device:s0
+/dev/block/mmcblk0p10           u:object_r:nvm_block_device:s0
+/dev/block/mmcblk0p11           u:object_r:nvm_block_device:s0
+
+#thermal
+/sys/devices/system/cpu/cpu[0-9]*/cpufreq/thermal_scaling_max_freq u:object_r:thermal_file:s0
+/sys/devices/virtual/thermal/thermal_zone[0-9]*/trip_point_[0-9]*_temp u:object_r:thermal_file:s0
+/sys/devices/soc0/e0000000.noc/ef010000.l2_noc/e2000000.ahb_per/e2e00000.gpu/pm_max_state u:object_r:thermal_file:s0
+# pekallfmrserver
+/system/bin/pekallfmrserver     u:object_r:pekallfmrserver_exec:s0
+/dev/radio(.*)                  u:object_r:radio_device:s0
+
+# fg_conf
+/system/bin/fg_conf             u:object_r:fg_conf_exec:s0
+
+# logconfig
+/system/bin/logconfig           u:object_r:logconfig_exec:s0
+/dev/socket/logconfig           u:object_r:logconfig_socket:s0
+
+# nvm_fs_partition
+/nvm_fs_partition               u:object_r:rootfs:s0
+/nvm_fs_partition(/.*)?         u:object_r:nvm_data_file:s0
+#/nvm_fs_partition/nvm/10300000  u:object_r:nvm_data_file:s0
+#/nvm_fs_partition/nvm/10371000  u:object_r:nvm_data_file:s0
+
+# /data directories
+/data/gnss(/.*)?                u:object_r:gps_data_file:s0
+/data/fmd(/.*)?                 u:object_r:fmd_data_file:s0
+/data/logs(/.*)?                u:object_r:log_data_file:s0
+
+# toolbox
+/system/bin/toolbox             u:object_r:toolbox_exec:s0
+
+# rild2
+/dev/socket/rild2               u:object_r:rild_socket:s0
+/dev/socket/rild-debug2         u:object_r:rild_debug_socket:s0
+
+# rpcd
+/dev/socket/rpc(.*)?            u:object_r:rpcd_data_file:s0
+/dev/socket/msmSock             u:object_r:rpcd_data_file:s0
+
+# rfkill
+/dev/rfkill                     u:object_r:radio_device:s0
+
+# voemcrypto for mediaserver
+/dev/voemcrypto                 u:object_r:voemcrypto_device:s0
+
+# Low Power mp3 playback
+/dev/lpmp3                      u:object_r:audio_device:s0
+
 /dev/ttyFIQ[0-9]*    u:object_r:serial_device:s0
 /dev/ttyUSB[0-9]*    u:object_r:tty_device:s0
 /dev/mali[0-9]       u:object_r:gpu_device:s0

@@ -25,6 +25,7 @@ on init
     # Need read permission to /proc/cmdline for audio
     chmod 0444 /proc/cmdline
     mkdir /nvm_fs_partition 0777 misc misc
+    restorecon /nvm_fs_partition
 
     # Symlink for Widevine keybox
     symlink /nvm_fs_partition/factory /factory
@@ -35,6 +36,7 @@ on property:init.svc.setup_fs_nvm=stopped
 
     mkdir /nvm_fs_partition/factory 0777 misc misc
     mkdir /nvm_fs_partition/nvm 0777 misc misc
+    restorecon_recursive /nvm_fs_partition
     start nvm_uagent
     start media
     start init_wlan_nvm
@@ -409,4 +411,5 @@ on property:ro.debuggable=1
 service apk_logfs /system/bin/logcat -b system -b events -b main -b radio -b kernel -n 20 -v threadtime -f /data/logs/aplog -r5000
     class main
     user root
+    seclabel u:r:apk_logfs:s0
     disabled

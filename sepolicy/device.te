@@ -1,3 +1,16 @@
+# Additional device definitions
+
+type mvpipe_device, dev_type;
+
+type fmdev_device, dev_type;
+
+type nvm_block_device, dev_type;
+
+type rpc_block_device, dev_type;
+
+type tee_rpc_device, dev_type;
+
+type voemcrypto_device, dev_type;
 type ddr_device, dev_type;
 type rga_device, dev_type;
 type vflash_device, dev_type;

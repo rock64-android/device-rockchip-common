@@ -1,3 +1,25 @@
+# Additional file rules
+
+# logcat for all the scripts
+type logcat_exec, exec_type, file_type;
+
+# data file type for nvm_fs_partition
+type nvm_data_file, file_type, data_file_type;
+
+type rpcd_data_file, file_type, data_file_type;
+type fmd_data_file, file_type, data_file_type;
+type log_data_file, file_type, data_file_type;
+
+# toolbox
+type toolbox_exec, exec_type, file_type;
+
+# logconfig socket
+type logconfig_socket, file_type;
+
+# modem_state
+type sysfs_modem_state, fs_type, sysfs_type;
+
 type metadata_file, file_type;
 type camdata_file, file_type;
 type ru_file, file_type;
+type thermal_file, fs_type, sysfs_type;

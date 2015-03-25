@@ -95,6 +95,8 @@ TARGET_USES_LOGD ?= true
 
 # Sepolicy
 BOARD_SEPOLICY_DIRS ?= device/rockchip/common/sepolicy
+BOARD_SEPOLICY_REPLACE := \
+    domain.te
 BOARD_SEPOLICY_UNION ?=     \
         akmd.te             \
         app.te              \
@@ -118,7 +120,26 @@ BOARD_SEPOLICY_UNION ?=     \
         system_server.te    \
         uncrypt.te          \
         vold.te             \
-        zygote.te
+        apk_logfs.te        \
+        crashlogd.te        \
+        dhcp.te             \
+        fg_conf.te          \
+        fmd.te              \
+	 init_shell.te       \
+	 install_recovery.te \
+	 keystore.te         \
+	 lbsd.te             \
+	 logconfig.te        \
+	 nvm.te              \
+	 pekallfmrserver.te  \
+	 rpc.te              \
+	 service_contexts    \
+	 servicemanager.te   \
+	 setup_fs_nvm.te     \
+	 ueventd.te          \
+	 untrusted_app.te    \
+	 wpa.te              \
+	 zygote.te
 
 
 # Recovery
