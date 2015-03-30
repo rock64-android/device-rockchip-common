@@ -131,7 +131,7 @@ on post-fs-data
 
 
     # backlight permission
-    chown system system /sys/class/backlight/e1a00000.backlight/brightness
+    chown system system /sys/class/backlight/pwm-backlight/brightness
 
     # Permissions for SVB sensors
     # Proximity and light sensor
