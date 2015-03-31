@@ -34,7 +34,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.rksdk.version=RK30_ANDROID$(PLATFORM_VERSION)-SDK-v1.00.00
 
 # Filesystem management tools
-PRODUCT_PACKAGES += \
+# Don't use f2fs by default
+#PRODUCT_PACKAGES += \
     fsck.f2fs mkfs.f2fs
 
 ifeq ($(strip $(BOARD_USE_LCDC_COMPOSER)), true)
