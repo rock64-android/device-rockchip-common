@@ -12,3 +12,4 @@ allow setup_fs_nvm labeledfs:filesystem { mount unmount };
 allow setup_fs_nvm system_file:file execute_no_trans;
 allow setup_fs_nvm block_device:dir search;
 allow setup_fs_nvm self:capability sys_admin;
+allow setup_fs_nvm rpc_block_device:blk_file rw_file_perms;

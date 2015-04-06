@@ -21,7 +21,7 @@ allow rpc sysfs:file { read write };
 
 # mr1 changes
 allow rpc radio_device:chr_file rw_file_perms;
-allow rpc rpc_block_device:blk_file r_file_perms;
+allow rpc rpc_block_device:blk_file { read open r_file_perms};
 allow rpc mvpipe_device:chr_file rw_file_perms;
 allow rpc system_data_file:sock_file unlink;
 # below line must be better specified "modem_state" is manipulated

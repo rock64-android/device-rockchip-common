@@ -21,7 +21,8 @@
 /system/bin/rpcServer           u:object_r:rpc_exec:s0
 /system/bin/rpc-daemon          u:object_r:rpc_exec:s0
 /dev/vmodem                     u:object_r:radio_device:s0
-/dev/block/mmcblk0p7            u:object_r:rpc_block_device:s0
+#/dev/block/mmcblk0p7            u:object_r:rpc_block_device:s0
+/dev/block/mmcblk0p12            u:object_r:rpc_block_device:s0
 /dev/mvpipe-(.*)                u:object_r:mvpipe_device:s0
 
 # TEE
@@ -50,6 +51,8 @@
 #thermal
 /sys/devices/system/cpu/cpu[0-9]*/cpufreq/thermal_scaling_max_freq u:object_r:thermal_file:s0
 /sys/devices/virtual/thermal/thermal_zone[0-9]*/trip_point_[0-9]*_temp u:object_r:thermal_file:s0
+/sys/devices/virtual/thermal/thermal_zone[0-9]*/emul_temp u:object_r:thermal_file:s0
+/sys/devices/virtual/thermal/thermal_zone[0-9]/kernel u:object_r:thermal_file:s0
 /sys/devices/soc0/e0000000.noc/ef010000.l2_noc/e2000000.ahb_per/e2e00000.gpu/pm_max_state u:object_r:thermal_file:s0
 # pekallfmrserver
 /system/bin/pekallfmrserver     u:object_r:pekallfmrserver_exec:s0
