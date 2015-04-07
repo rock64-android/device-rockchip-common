@@ -181,16 +181,16 @@ on boot
     chown media audio /data/video_dumps
     chmod 0777 /data/video_dumps
 
-on charger
-    class_start charger
-    start crashlogd
-    start console
+#on charger
+#    class_start charger
+#    start crashlogd
+#    start console
 
-service batteryserver /charger
-    class charger
-    user root
-    console
-    oneshot
+#service batteryserver /charger
+#    class charger
+#    user root
+#    console
+#    oneshot
 
 on fs
     mount_all ./fstab.sofiaboard
