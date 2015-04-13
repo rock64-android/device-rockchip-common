@@ -45,6 +45,9 @@ class RkUI : public ScreenRecoveryUI {
     }
 
     virtual KeyAction CheckKey(int key) {
+    		if(!IsTextVisible()){
+            return TOGGLE;
+        }
         if (IsKeyPressed(KEY_POWER) && key == KEY_VOLUMEUP) {
             return TOGGLE;
         }
