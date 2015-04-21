@@ -360,7 +360,10 @@ service rpc-daemon /system/bin/rpc-daemon
     group root radio system
     class core
     user root
+    disabled
 
+on property:msm.start=true
+    start rpc-daemon
 
 service ril-daemon2 /system/bin/rild -c 2
    class main
