@@ -179,7 +179,7 @@ on charger
     setprop ro.boot.charger.emmc 0
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
-    setprop sys.usb.config adb
+    setprop sys.usb.config mass_storage
 
 service akmd /system/bin/akmd
     class main
