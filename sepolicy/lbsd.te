@@ -12,5 +12,5 @@ allow lbsd lbsd_exec:file rx_file_perms;
 allow lbsd rpcd_data_file:sock_file write;
 allow lbsd rpc:unix_stream_socket { connectto };
 allow lbsd gps_device:chr_file { getattr read write open ioctl };
-allow lbsd init:unix_stream_socket { listen };
+allow lbsd init:unix_stream_socket { accept listen };
 init_daemon_domain(lbsd)
