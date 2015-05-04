@@ -15,3 +15,8 @@ allow gpsd init:unix_stream_socket { rw_socket_perms listen accept };
 
 # mr1
 allow gpsd rpcd_data_file:dir r_dir_perms;
+
+allow gpsd socket_device:sock_file write;
+unix_socket_connect(gpsd, rpc_recv, rpc);
+unix_socket_connect(gpsd, rpc_send, rpc);
+unix_socket_connect(gpsd, rpc_reg, rpc);

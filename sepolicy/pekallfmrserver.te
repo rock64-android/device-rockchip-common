@@ -9,3 +9,4 @@ allow pekallfmrserver radio_service:service_manager add;
 allow pekallfmrserver radio_device:chr_file rw_file_perms;
 allow pekallfmrserver untrusted_app:binder call;
 allow pekallfmrserver platform_app:binder call;
+allow pekallfmrserver system_app:binder call;

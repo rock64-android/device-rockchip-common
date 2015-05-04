@@ -4,13 +4,18 @@ type lbsd_exec, exec_type, file_type;
 allow lbsd gps_data_file:file create_file_perms;
 allow lbsd gps_data_file:dir create_dir_perms;
 allow lbsd gps_socket:sock_file write;
-allow lbsd init:unix_stream_socket { read write };
-allow lbsd shell_exec:file { read };
-allow lbsd toolbox_exec:file rx_file_perms;
+allow lbsd init:unix_stream_socket { accept listen read write };
+allow lbsd shell_exec:file { read getattr open execute execute_no_trans };
+allow lbsd lbsd_exec:file { read getattr open execute execute_no_trans };
+allow lbsd toolbox_exec:file { read getattr open execute execute_no_trans };
+allow lbsd gps_device:chr_file { read write getattr open ioctl };
 allow lbsd self:capability { dac_override };
-allow lbsd lbsd_exec:file rx_file_perms;
+
 allow lbsd rpcd_data_file:sock_file write;
+allow system_server lbsd:unix_stream_socket { connectto };
+allow system_server gps_data_file:dir { search }; 
 allow lbsd rpc:unix_stream_socket { connectto };
-allow lbsd gps_device:chr_file { getattr read write open ioctl };
-allow lbsd init:unix_stream_socket { accept listen };
+allow lbsd rpc_recv_socket:sock_file write; 
+allow lbsd rpc_send_socket:sock_file write;
+allow lbsd rpc_reg_socket:sock_file write;
 init_daemon_domain(lbsd)

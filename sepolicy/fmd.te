@@ -11,3 +11,8 @@ allow fmd rpcd_data_file:sock_file write;
 
 # mr1 changes
 allow fmd rpcd_data_file:dir r_dir_perms;
+allow fmd socket_device:sock_file write;
+allow fmd self:capability dac_override;
+unix_socket_connect(fmd, rpc_recv, rpc);
+unix_socket_connect(fmd, rpc_send, rpc);
+unix_socket_connect(fmd, rpc_reg, rpc);

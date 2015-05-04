@@ -21,12 +21,13 @@
 /system/bin/rpcServer           u:object_r:rpc_exec:s0
 /system/bin/rpc-daemon          u:object_r:rpc_exec:s0
 /dev/vmodem                     u:object_r:radio_device:s0
-#/dev/block/mmcblk0p7            u:object_r:rpc_block_device:s0
-/dev/block/mmcblk0p12            u:object_r:rpc_block_device:s0
+/dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID022 u:object_r:rpc_block_device:s0
 /dev/mvpipe-(.*)                u:object_r:mvpipe_device:s0
-
-# TEE
-/dev/tee_rpc                    u:object_r:tee_rpc_device:s0
+#/dev/socket/msmSock             u:object_r:msmSock_socket:s0
+/dev/socket/rpc_recv            u:object_r:rpc_recv_socket:s0
+/dev/socket/rpc_send            u:object_r:rpc_send_socket:s0
+/dev/socket/rpc_reg             u:object_r:rpc_reg_socket:s0
+/dev/tee_rpc                    u:object_r:tee_device:s0
 
 # fmd
 /system/bin/fmd                 u:object_r:fmd_exec:s0
@@ -43,10 +44,8 @@
 /system/bin/nvm_useragent       u:object_r:nvm_exec:s0
 /system/bin/setup_fs_nvm        u:object_r:setup_fs_nvm_exec:s0
 /dev/nvmdev                     u:object_r:radio_device:s0
-#/dev/block/mmcblk0p8            u:object_r:nvm_block_device:s0
-#/dev/block/mmcblk0p9            u:object_r:nvm_block_device:s0
-/dev/block/mmcblk0p10           u:object_r:nvm_block_device:s0
-/dev/block/mmcblk0p11           u:object_r:nvm_block_device:s0
+/dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076 u:object_r:nvm_block_device:s0
+/dev/block/zram0                u:object_r:nvm_block_device:s0
 
 #thermal
 /sys/devices/system/cpu/cpu[0-9]*/cpufreq/thermal_scaling_max_freq u:object_r:thermal_file:s0
@@ -66,13 +65,14 @@
 /dev/socket/logconfig           u:object_r:logconfig_socket:s0
 
 # nvm_fs_partition
-/nvm_fs_partition               u:object_r:rootfs:s0
+#/nvm_fs_partition               u:object_r:rootfs:s0
 /nvm_fs_partition(/.*)?         u:object_r:nvm_data_file:s0
 #/nvm_fs_partition/nvm/10300000  u:object_r:nvm_data_file:s0
 #/nvm_fs_partition/nvm/10371000  u:object_r:nvm_data_file:s0
 
 # /data directories
 /data/gnss(/.*)?                u:object_r:gps_data_file:s0
+/data/rpcd(/.*)?                u:object_r:rpcd_data_file:s0
 /data/fmd(/.*)?                 u:object_r:fmd_data_file:s0
 /data/logs(/.*)?                u:object_r:log_data_file:s0
 
@@ -89,6 +89,9 @@
 
 # rfkill
 /dev/rfkill                     u:object_r:radio_device:s0
+
+# modem_state
+/sys/devices/3c000000.vmodem/modem_state u:object_r:sysfs_modem_state:s0
 
 # voemcrypto for mediaserver
 /dev/voemcrypto                 u:object_r:voemcrypto_device:s0
