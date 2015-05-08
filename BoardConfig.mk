@@ -250,3 +250,6 @@ BOARD_CHARGER_DISABLE_INIT_BLANK ?= true
 
 #stress test
 BOARD_HAS_STRESSTEST_APP ?= true
+
+#remotecontrol by phone apk
+BOARD_HAS_REMOTECONTROL ?= false
