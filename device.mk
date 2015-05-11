@@ -83,6 +83,11 @@ PRODUCT_COPY_FILES += \
     hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     hardware/broadcom/wlan/bcmdhd/config/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
+ifeq ($(strip $(BOARD_USE_ALARM_FILTER)), true)
+PRODUCT_COPY_FILES += \
+   device/rockchip/common/alarm_filter.xml:system/etc/alarm_filter.xml
+endif
+
 PRODUCT_PACKAGES += \
     hostapd \
     wpa_supplicant \
