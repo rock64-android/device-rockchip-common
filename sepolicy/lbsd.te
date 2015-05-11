@@ -4,7 +4,7 @@ type lbsd_exec, exec_type, file_type;
 allow lbsd gps_data_file:file create_file_perms;
 allow lbsd gps_data_file:dir create_dir_perms;
 allow lbsd gps_socket:sock_file write;
-allow lbsd init:unix_stream_socket { accept listen read write };
+allow lbsd init:unix_stream_socket { accept listen read write getopt };
 allow lbsd shell_exec:file { read getattr open execute execute_no_trans };
 allow lbsd lbsd_exec:file { read getattr open execute execute_no_trans };
 allow lbsd toolbox_exec:file { read getattr open execute execute_no_trans };

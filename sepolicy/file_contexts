@@ -39,6 +39,9 @@
 /dev/socket/lbsd                u:object_r:gps_socket:s0
 /dev/ttyGNSS0                   u:object_r:gps_device:s0
 
+# sensor
+/dev/lightsensor                u:object_r:sensor_device:s0
+/dev/psensor               	u:object_r:sensor_device:s0
 # nvm
 #/nvm_fs_partition(/.*)?         u:object_r:nvm_data_file:s0
 /system/bin/nvm_useragent       u:object_r:nvm_exec:s0
