@@ -149,7 +149,8 @@ on post-fs-data
     # Gyroscope sensor
     chown system system /sys/class/i2c-adapter/i2c-2/2-006a/pollrate_ms
     chown system system /sys/class/i2c-adapter/i2c-2/2-006a/enable_device
-
+    
+    mkdir /data/misc/system_relro 0771 system system
 #	# TEE RPC
 #    chown system system /dev/tee_rpc
 #    chmod 0666 /dev/tee_rpc
