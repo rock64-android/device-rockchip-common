@@ -23,4 +23,5 @@ recovery_only(`
 	allow recovery ru_file:file execute_no_trans;
 	allow recovery ru_file:{ file lnk_file } { create_file_perms relabelfrom relabelto };
 	allow recovery ru_file:dir { create_dir_perms relabelfrom relabelto };
+    allow recovery rootfs:file rx_file_perms;
 ')
