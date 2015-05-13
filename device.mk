@@ -481,3 +481,8 @@ else
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.enable.remotecontrol=false
 endif
+
+ifeq ($(strip $(BUILD_WITH_SKIPVERIFY)),true)
+PRODUCT_PROPERTY_OVERRIDES +=               \
+    ro.config.enable.skipverify=true
+endif
