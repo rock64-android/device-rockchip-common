@@ -253,3 +253,6 @@ BOARD_HAS_STRESSTEST_APP ?= true
 
 #remotecontrol by phone apk
 BOARD_HAS_REMOTECONTROL ?= false
+
+#Board use IOMMU
+BOARD_WITH_IOMMU ?= true
