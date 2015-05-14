@@ -38,7 +38,7 @@ on init
 on property:init.svc.setup_fs_nvm=stopped
 
     mkdir /nvm_fs_partition/factory 0660 misc misc
-    mkdir /nvm_fs_partition/nvm 0660 misc misc
+    mkdir /nvm_fs_partition/nvm 0770 misc audio
     restorecon_recursive /nvm_fs_partition
     start nvm_uagent
     start media
