@@ -4,7 +4,7 @@ allow init_shell toolbox_exec:file execute_no_trans;
 # Below lines must be fixed
 allow init_shell self:capability sys_module;
 allow init_shell system_prop:property_service set;
-#allow init_shell labeledfs:filesystem remount;
+allow init_shell labeledfs:filesystem remount;
 allow init_shell nvm_block_device:blk_file rw_file_perms;
 allow init_shell kernel:process setsched;
 #allow init_shell system_file:dir rw_dir_perms;
