@@ -22,6 +22,9 @@
 /system/bin/rpc-daemon          u:object_r:rpc_exec:s0
 /dev/vmodem                     u:object_r:radio_device:s0
 /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID022 u:object_r:rpc_block_device:s0
+/dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID023 u:object_r:rpc_block_device:s0
+/dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID024 u:object_r:rpc_block_device:s0
+/dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID068 u:object_r:system_block_device:s0
 /dev/mvpipe-(.*)                u:object_r:mvpipe_device:s0
 #/dev/socket/msmSock             u:object_r:msmSock_socket:s0
 /dev/socket/rpc_recv            u:object_r:rpc_recv_socket:s0

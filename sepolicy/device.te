@@ -8,6 +8,8 @@ type nvm_block_device, dev_type;
 
 type rpc_block_device, dev_type;
 
+type system_block_device, dev_type;
+
 type tee_rpc_device, dev_type;
 
 type voemcrypto_device, dev_type;

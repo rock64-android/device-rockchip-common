@@ -10,3 +10,4 @@ allow init_shell kernel:process setsched;
 #allow init_shell system_file:dir rw_dir_perms;
 #allow init_shell system_file:lnk_file create;
 allow init_shell system_file:dir r_dir_perms;
+allow init_shell system_block_device:blk_file r_file_perms;
