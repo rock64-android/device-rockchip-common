@@ -37,6 +37,9 @@ on init
 # NVM dependent services are disabled by default; start them from here.
 on property:init.svc.setup_fs_nvm=stopped
 
+    wait /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076
+    mount ext4 /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076 /nvm_fs_partition nosuid nodev data=journal
+
     mkdir /nvm_fs_partition/factory 0660 misc misc
     mkdir /nvm_fs_partition/nvm 0770 misc audio
     restorecon_recursive /nvm_fs_partition
@@ -343,7 +346,7 @@ service rpcServer /system/bin/rpcServer
     user root
     group root
 
-service setup_fs_nvm /system/bin/setup_fs_nvm /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076 /nvm_fs_partition
+service setup_fs_nvm /system/bin/setup_fs_nvm /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076
     class core
     user root
     group root
