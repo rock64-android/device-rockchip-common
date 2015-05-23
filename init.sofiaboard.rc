@@ -47,6 +47,16 @@ on property:init.svc.setup_fs_nvm=stopped
     start media
     start init_wlan_nvm
     start ril-daemon
+    start ril-daemon2    
+
+on property:persist.ril-daemon.disable=0
+    stop ril-daemon2
+
+on property:persist.ril-daemon.disable=1
+    stop ril-daemon
+    stop ril-daemon2
+
+on property:persist.ril-daemon.disable=dsds
     start ril-daemon2
 
 on property:persist.tool_enable=1
