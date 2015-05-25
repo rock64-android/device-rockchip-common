@@ -7,4 +7,5 @@
 <app package="com.google.android.partnersetup"/>
 <app package="com.google.android.gms"/>
 <app package="com.android.calendar"/>
+<app package="com.android.providers.calendar"/>
 </alarm-package>
