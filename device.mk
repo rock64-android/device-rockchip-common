@@ -486,3 +486,8 @@ ifeq ($(strip $(BUILD_WITH_SKIPVERIFY)),true)
 PRODUCT_PROPERTY_OVERRIDES +=               \
     ro.config.enable.skipverify=true
 endif
+
+ifneq ($(filter rk%, $(TARGET_BOARD_PLATFORM)), )
+PRODUCT_COPY_FILES += \
+        device/rockchip/common/performance_info.xml:system/etc/performance_info.xml
+endif
