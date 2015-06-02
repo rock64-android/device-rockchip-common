@@ -13,9 +13,15 @@ unix_socket_connect(rild, msmSock, rpc);
 unix_socket_connect(rild, rpc_recv, rpc);
 unix_socket_connect(rild, rpc_send, rpc);
 unix_socket_connect(rild, rpc_reg, rpc);
+# ppp for 3G dongle 
 allow rild ppp_device:chr_file rw_file_perms;
 allow rild net_radio_prop:property_service set;
 allow rild ppp_exec:file {execute execute_no_trans open};
 allow rild ppp_exec:file getattr;
 allow rild ppp_exec:file { read };
 allow rild self:capability { setuid setgid dac_override };
+# for 3G dongle in userdubg mode
+allow rild toolbox_exec:file {getattr execute_no_trans execute read open};
+allow rild system_data_file:dir {write add_name};
+allow rild system_data_file:file {create write};
+allow rild self:capability { sys_admin };
