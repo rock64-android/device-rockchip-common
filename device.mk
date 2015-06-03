@@ -489,5 +489,5 @@ endif
 
 ifneq ($(filter rk%, $(TARGET_BOARD_PLATFORM)), )
 PRODUCT_COPY_FILES += \
-        device/rockchip/common/performance_info.xml:system/etc/performance_info.xml
+        device/rockchip/common/package_performance.xml:system/etc/package_performance.xml
 endif
