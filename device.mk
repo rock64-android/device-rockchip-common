@@ -483,11 +483,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 endif
 
 ifeq ($(strip $(BUILD_WITH_SKIPVERIFY)),true)
-PRODUCT_PROPERTY_OVERRIDES +=               \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.enable.skipverify=true
 endif
 
 ifneq ($(filter rk%, $(TARGET_BOARD_PLATFORM)), )
 PRODUCT_COPY_FILES += \
         device/rockchip/common/package_performance.xml:system/etc/package_performance.xml
+endif
+ifeq ($(strip $(BUILD_WITH_MTP_OPT)),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.enable.mtp_opt=true
 endif
