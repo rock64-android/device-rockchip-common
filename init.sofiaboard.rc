@@ -1,6 +1,6 @@
 import /init.rockchip.rc
 import /init.wifi.${ro.bootmode}.rc
-import /init.gnss.rc
+import /init.gnss.${ro.bootmode}.rc
 import /init.bluetooth.rc
 import /init.ksm.rc
 import /init.zram.rc
