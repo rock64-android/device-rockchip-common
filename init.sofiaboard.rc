@@ -81,6 +81,8 @@ on post-fs-data
     chmod 0660 /sys/devices/system/cpu/cpufreq/ondemand/boost_pulse
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
     chmod 0660 /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/touchboostpulse
+    chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/touchboostpulse
 
     # Set this property to enable Thermal service
     setprop persist.service.thermal 1
@@ -145,8 +147,6 @@ on post-fs-data
     chmod 0664 /sys/class/thermal/thermal_zone1/kernel
     chmod 0664 /sys/devices/soc0/e0000000.noc/ef010000.l2_noc/e2000000.ahb_per/e2e00000.gpu/pm_max_state
 
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate  40000
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq  728000
 
     # backlight permission
     chown system system /sys/class/backlight/pwm-backlight/brightness
