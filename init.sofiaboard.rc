@@ -343,6 +343,11 @@ on charger
 #    class late_start
 #    disabled
 
+service bootring /system/bin/audio_pcb 2 /system/media/audio/boot.wav -D 0 -d 0 -p 240 -n 16 -t 1 -u 10
+    class main
+    disabled
+    oneshot
+
 service ipcsd /system/bin/ipcsd --apint=UDSOCKS_,gateway --ext=TTY,/dev/ttyGS2 --mex=TTY,/dev/mvpipe-GTI
     class main
     disabled
