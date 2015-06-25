@@ -4,3 +4,4 @@ allow surfaceflinger vpu_device:chr_file rw_file_perms;
 allow surfaceflinger device:dir r_dir_perms;
 allow surfaceflinger ddr_device:chr_file rw_file_perms;
 allow surfaceflinger rga_device:chr_file rw_file_perms;
+allow surfaceflinger ipp_device:chr_file rw_file_perms;
