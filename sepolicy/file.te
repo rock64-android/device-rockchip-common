@@ -30,3 +30,4 @@ type camdata_file, file_type;
 type ru_file, file_type;
 type thermal_file, fs_type, sysfs_type;
 type pdflush_proc, fs_type;
+type akmd_device, dev_type;

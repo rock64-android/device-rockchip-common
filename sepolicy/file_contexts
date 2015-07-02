@@ -45,6 +45,9 @@
 # sensor
 /dev/lightsensor                u:object_r:sensor_device:s0
 /dev/psensor               	u:object_r:sensor_device:s0
+/dev/compass               	u:object_r:sensor_device:s0
+/dev/gyrosensor               	u:object_r:sensor_device:s0
+/dev/pressure               	u:object_r:sensor_device:s0
 # nvm
 #/nvm_fs_partition(/.*)?         u:object_r:nvm_data_file:s0
 /system/bin/nvm_useragent       u:object_r:nvm_exec:s0
@@ -131,3 +134,6 @@
 /dev/rtk_btusb       u:object_r:rtkbt_device:s0
 /dev/rknand_sys_storage                u:object_r:rknand_device:s0
 /system/bin/wpa_supplicant_rtl  u:object_r:wpa_exec:s0
+
+#akmd
+/dev/akm8963_dev     u:object_r:akmd_device:s0
