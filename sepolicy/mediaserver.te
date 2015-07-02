@@ -27,3 +27,4 @@ allow mediaserver camdata_file:file create_file_perms;
 allow mediaserver untrusted_app:dir search;
 allow mediaserver untrusted_app:file { open read };
 allow mediaserver graphics_device:dir { search };
+allow mediaserver bootanim:binder { call transfer };

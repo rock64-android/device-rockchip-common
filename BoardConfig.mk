@@ -125,6 +125,7 @@ BOARD_SEPOLICY_UNION ?=     \
         dhcp.te             \
         fg_conf.te          \
         fmd.te              \
+        bootanim.te         \
 	 init_shell.te       \
 	 install_recovery.te \
 	 keystore.te         \
