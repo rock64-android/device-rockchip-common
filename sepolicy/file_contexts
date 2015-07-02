@@ -133,7 +133,8 @@
 /radical_update(/.*)? u:object_r:ru_file:s0
 /dev/rtk_btusb       u:object_r:rtkbt_device:s0
 /dev/rknand_sys_storage                u:object_r:rknand_device:s0
-/system/bin/wpa_supplicant_rtl  u:object_r:wpa_exec:s0
+/system/bin/wpa_supplicant_rtl  u:object_r:rtl_wpa_exec:s0
+/system/bin/wpa_supplicant_esp  u:object_r:esp_wpa_exec:s0
 
 #akmd
 /dev/akm8963_dev     u:object_r:akmd_device:s0

@@ -140,7 +140,9 @@ BOARD_SEPOLICY_UNION ?=     \
 	 ueventd.te          \
 	 untrusted_app.te    \
 	 wpa.te              \
-	 zygote.te
+	 zygote.te           \
+         rtl_wpa.te          \
+         esp_wpa.te
 
 
 # Recovery
