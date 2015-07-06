@@ -28,3 +28,5 @@ allow mediaserver untrusted_app:dir search;
 allow mediaserver untrusted_app:file { open read };
 allow mediaserver graphics_device:dir { search };
 allow mediaserver bootanim:binder { call transfer };
+allow mediaserver platform_app:dir { search };
+allow mediaserver platform_app:file r_file_perms;
