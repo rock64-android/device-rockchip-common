@@ -123,6 +123,10 @@ on property:ro.boot.baseband=N/A
     setprop ro.radio.noril false
     start ril-daemon
 
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+    class late_start
+
+
 ##$_rbox_$_modify_$_chenzhi_20120309
 ##$_rbox_$_modify_$_begin
 service pppoe_setup /system/bin/pppoe-setup
