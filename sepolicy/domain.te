@@ -234,8 +234,12 @@ neverallow { domain -init } kernel:security setsecparam;
 neverallow { domain -init -system_server -ueventd -unconfineddomain } hw_random_device:chr_file *;
 
 # Ensure that all entrypoint executables are in exec_type.
+ptest_only(`
+neverallow { domain -lbsd } { file_type -exec_type }:file entrypoint;
+')
+normal_or_recovery(`
 neverallow domain { file_type -exec_type }:file entrypoint;
-
+')
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
 neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
 neverallow domain kmem_device:chr_file ~{ create relabelto unlink setattr };

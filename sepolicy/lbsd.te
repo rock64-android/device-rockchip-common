@@ -18,4 +18,7 @@ allow lbsd rpc:unix_stream_socket { connectto };
 allow lbsd rpc_recv_socket:sock_file write; 
 allow lbsd rpc_send_socket:sock_file write;
 allow lbsd rpc_reg_socket:sock_file write;
+ptest_only(`
+allow lbsd system_file:file { entrypoint };
+')
 init_daemon_domain(lbsd)

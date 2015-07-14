@@ -502,3 +502,9 @@ ifeq ($(strip $(BUILD_WITH_MTP_OPT)),true)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.enable.mtp_opt=true
 endif
+
+# SELinux packages
+ifeq ($(strip $(BUILD_WITH_USER_PTEST)),true)
+PRODUCT_PACKAGES += \
+    ptestsepolicy
+endif
