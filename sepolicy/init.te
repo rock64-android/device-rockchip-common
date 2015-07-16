@@ -8,4 +8,8 @@ recovery_only(`
 ')
 ptest_only(`
 allow init self:tcp_socket { create setopt bind };
+allow init port:tcp_socket { name_bind };
+allow init node:tcp_socket { node_bind };
+allow init self:tcp_socket { listen };
+allow init self:tcp_socket { accept getopt write read };
 ')
