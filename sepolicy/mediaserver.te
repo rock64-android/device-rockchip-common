@@ -30,3 +30,4 @@ allow mediaserver graphics_device:dir { search };
 allow mediaserver bootanim:binder { call transfer };
 allow mediaserver platform_app:dir { search };
 allow mediaserver platform_app:file r_file_perms;
+allow mediaserver system_app_data_file:file rw_file_perms;
