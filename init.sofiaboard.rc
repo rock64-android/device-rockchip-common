@@ -146,7 +146,8 @@ on post-fs-data
     chmod 0664 /sys/class/mali/pm/max_freq_level
     chmod 0664 /sys/class/thermal/thermal_zone1/kernel
     chmod 0664 /sys/devices/soc0/e0000000.noc/ef010000.l2_noc/e2000000.ahb_per/e2e00000.gpu/pm_max_state
-
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
 
     # backlight permission
     chown system system /sys/class/backlight/pwm-backlight/brightness
