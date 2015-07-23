@@ -2,5 +2,3 @@
 fmradioservice                u:object_r:radio_service:s0
 oemtelephony                  u:object_r:radio_service:s0
 msm.registry                  u:object_r:system_app_service:s0
-#add pppoe service
-pppoe                         u:object_r:system_server_service:s0
