@@ -506,5 +506,5 @@ endif
 # SELinux packages
 ifeq ($(strip $(BUILD_WITH_USER_PTEST)),true)
 PRODUCT_PACKAGES += \
-    ptestsepolicy
+    sepolicy.ptest
 endif
