@@ -74,12 +74,7 @@ on post-fs-data
     chown dhcp dhcp /data/misc/dhcp
     setprop vold.post_fs_data_done 1
 
-on  persist.sys.hwui.file=1 
-   copy /system/etc/hwuishader.bin /data/hwuihas/
-   copy /system/etc/hwuihas.bin /data/hwuihas/
-   chmod 777 /data/hwuihas/hwuishader.bin
-   chmod 777 /data/hwuihas/hwuihas.bin
-   setprop persist.sys.hwui.file 0
+
 
 
 	# Set cpufreq boost for ondemand governor
@@ -179,6 +174,14 @@ on  persist.sys.hwui.file=1
 #    chown system system /dev/tee_rpc
 #    chmod 0666 /dev/tee_rpc
 
+on  persist.sys.hwui.file=1 
+   mkdir /data/hwuihas 0777 system system 
+   copy /system/etc/hwuishader.bin /data/hwuihas/
+   copy /system/etc/hwuihas.bin /data/hwuihas/
+   chmod 777 /data/hwuihas/hwuishader.bin
+   chmod 777 /data/hwuihas/hwuihas.bin
+   setprop persist.sys.hwui.file 0
+   
 on boot
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
