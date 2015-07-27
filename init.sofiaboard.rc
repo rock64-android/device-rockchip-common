@@ -44,7 +44,6 @@ on property:init.svc.setup_fs_nvm=stopped
     mkdir /nvm_fs_partition/nvm 0770 misc audio
     restorecon_recursive /nvm_fs_partition
     start nvm_uagent
-    start media
     start init_wlan_nvm
     start ril-daemon
     start ril-daemon2    
@@ -341,6 +340,7 @@ chmod 0666 /sys/bus/iio/devices/iio:device0/tap_on
 chmod 0666 /sys/bus/iio/devices/iio:device0/temperature
 chmod 0666 /sys/bus/iio/devices/iio:device0/trigger/current_trigger
 on charger
+     mount ext4 /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID068 /system ro
      start setup_fs_nvm
 
 # virtual sdcard daemon running as media_rw (1023)
