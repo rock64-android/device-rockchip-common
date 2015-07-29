@@ -61,6 +61,10 @@ on property:persist.ril-daemon.disable=dsds
 on property:persist.tool_enable=1
     start ipcsd
     start phonetool_btapp
+
+on property:sys.boot_completed=1
+    setprop persist.sys.first_booting false
+
 on post-fs-data
     chown root root /sys/devices/1d000000.vmodem/modem_state
     chmod 660 /sys/devices/1d000000.vmodem/modem_state
