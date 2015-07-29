@@ -43,7 +43,6 @@ on post-fs-data
     chown media_rw media_rw /data/media
 
     mkdir /data/camera 0775 media camera
-  
     setprop vold.post_fs_data_done 1
 
 on boot
@@ -67,8 +66,8 @@ on boot
 # daemon will drop to user/group system/media_rw after initializing
 # underlying files in /data/media will be created with user and group media_rw (1023)
 # virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
+# service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+#    class late_start
 
 service charger /charger
     class charger

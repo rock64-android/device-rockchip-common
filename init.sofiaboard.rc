@@ -75,6 +75,7 @@ on post-fs-data
     mkdir /data/fmd 0770 root root
 
     chown dhcp dhcp /data/misc/dhcp
+    mount sdcardfs /data/media /mnt/shell/emulated uid=1023,gid=1023
     setprop vold.post_fs_data_done 1
 
 
