@@ -220,6 +220,16 @@ on boot
 #    console
 #    oneshot
 
+
+on property:persist.sys.first_booting=true
+    mkdir /data/hwuihas/ 0777 root root
+    chmod 777 /data/hwuihas/   
+    copy /system/etc/hwuishader.bin /data/hwuihas/hwuishader.bin
+    copy /system/etc/hwuihas.bin /data/hwuihas/hwuihas.bin
+    chmod 777 /data/hwuihas/hwuishader.bin
+    chmod 777 /data/hwuihas/hwuihas.bin
+
+
 on fs
     mount_all ./fstab.sofiaboard
 #for sensors
@@ -250,14 +260,7 @@ on fs
     chmod 0660 /dev/pressure
     chown system system /dev/pressure
 
-on property:persist.sys.hwui.file=1
-    mkdir /data/hwuihas/ 0777 root root
-    chmod 777 /data/hwuihas/   
-    copy /system/etc/hwuishader.bin /data/hwuihas/hwuishader.bin
-    copy /system/etc/hwuihas.bin /data/hwuihas/hwuihas.bin
-    chmod 777 /data/hwuihas/hwuishader.bin
-    chmod 777 /data/hwuihas/hwuihas.bin
-    setprop persist.sys.hwui.file 0 
+
     
 #for mpu sensor
 chown system system /dev/iio:device0
