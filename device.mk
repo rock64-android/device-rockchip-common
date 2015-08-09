@@ -96,6 +96,16 @@ PRODUCT_COPY_FILES += \
    device/rockchip/common/alarm_filter.xml:system/etc/alarm_filter.xml
 endif
 
+ifeq ($(strip $(TARGET_USE_ALARM_POWER_SAVING)), true)
+PRODUCT_COPY_FILES += \
+   device/rockchip/common/alarmhelper.conf:system/etc/alarmhelper.conf
+
+PRODUCT_PROPERTY_OVERRIDES +=               \
+    ro.rk_smart_power_support=1                  
+
+endif
+
+
 PRODUCT_PACKAGES += \
     hostapd \
     wpa_supplicant \
