@@ -24,7 +24,7 @@
 /dev/vpu_service          0666   media      media
 /dev/hevc_service         0666   media      media
 /dev/vpu_mem              0666   system     system
-/dev/rk29-ipp             0666   system     system   
+/dev/rk29-ipp             0666   system     system
 /dev/rga                  0666   system     system
 /dev/video_state          0666   system     system
 /dev/sys_state            0660   system     system
@@ -35,7 +35,7 @@
 /dev/akm8973              0660   system     system
 /dev/accelerometer        0660   system     system
 
-# for mpu gyroscope 
+# for mpu gyroscope
 /dev/mpu                  0660   system     system
 /dev/mpuirq               0660   system     system
 /dev/timerirq             0660   system     system
@@ -77,7 +77,7 @@
 
 
 #for DRM
-/dev/rknand_sys_storage   0660   system     system 
+/dev/rknand_sys_storage   0660   system     system
 
 # for Camera
 /dev/camsys_marvin        0664        media        camera
@@ -87,7 +87,7 @@
 
 #for hdmi cec
 /dev/cec	0666	system	system
-#sofia 
+#sofia
 /dev/dcc    0660    system  system
 /dev/pmem_gfx   0666    system  system
 /dev/mvpipe-vpu 0660   media   graphics
@@ -95,7 +95,7 @@
 /dev/mem    0600    media   media
 /dev/rfkill	0600	wifi	wifi
 /dev/ttyBT0 0660    bluetooth   bluetooth
-/dev/ttyGNSS0   0600    gps gps 
+/dev/ttyGNSS0   0600    gps gps
 /dev/radio0     0660    audio   audio
 /dev/tadi       0660    system  trace
 /dev/voemcrypto 0660    media	media
@@ -110,3 +110,9 @@
 /etc/msm/	0660	radio	radio
 /dev/nvmdev 0660	radio	radio
 /dev/fmdev_device	0660	radio	radio
+
+# For customer's i2c developement
+/dev/i2c-1           	  0660   system   	 system
+/dev/i2c-2           	  0660   system   	 system
+/dev/i2c-3           	  0660   system   	 system
+/dev/i2c-4           	  0660   system   	 system
