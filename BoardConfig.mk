@@ -142,7 +142,8 @@ BOARD_SEPOLICY_UNION ?=     \
 	 wpa.te              \
 	 zygote.te           \
          rtl_wpa.te          \
-         esp_wpa.te
+         esp_wpa.te          \
+         rftest.te
 
 
 # Recovery
