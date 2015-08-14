@@ -77,6 +77,8 @@ on post-fs-data
     chmod 660 /sys/devices/1d000000.vmodem/modem_state
     chown root root /sys/class/misc/vmodem/modem_state
     chmod 660 /sys/class/misc/vmodem/modem_state
+    chown radio radio /sys/class/misc/vmodem/modem_state
+    chmod 660 /sys/class/misc/vmodem/modem_state
     mkdir /data/media 0770 media_rw media_rw
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     mkdir /data/fmd 0770 root root
@@ -385,8 +387,8 @@ service ipcsd /system/bin/ipcsd --apint=UDSOCKS_,gateway --ext=TTY,/dev/ttyGS2 -
 service rpcServer /system/bin/rpcServer
     socket msmSock stream 660 system radio
     class core
-    user root
-    group root
+    user radio
+    group radio inet net_raw net_admin
 
 service setup_fs_nvm /system/bin/setup_fs_nvm /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076
     class core
@@ -412,9 +414,9 @@ service rpc-daemon /system/bin/rpc-daemon
     socket rpc_send stream 660 system radio
     socket rpc_recv stream 660 system radio
     socket rpc_reg stream 660 system radio
-    group root radio system
+    group  radio system inet net_raw net_admin
+    user radio
     class core
-    user root
     disabled
 
 on property:msm.start=true
