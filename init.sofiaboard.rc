@@ -450,6 +450,11 @@ service init_wlan_nvm /system/bin/sh /system/etc/wifi/wlan_nvm_init.sh
     disabled
     oneshot
 
+service pluginservice /system/bin/pluginservice
+    user system
+    group root system radio
+    class main
+
 service fmd /system/bin/fmd -c /dev/fmdev_device -l /data/fmd/fmd.log -p /data/fmd/fmd.log.prev
     class main
     user root
