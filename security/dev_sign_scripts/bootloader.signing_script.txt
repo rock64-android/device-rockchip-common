@@ -1,0 +1,37 @@
+LOG
+
+Section BOOT_CORE_PSI
+USE_DER_SIGNATURES
+ImportBinary 0xFFF00310 device/rockchip/common/security/dev_keys/GpukCert.bin
+ImportBinary 0xFFF00710 device/rockchip/common/security/dev_keys/DevPubKeys.bin
+ImportBinary 0xFFF00D00 device/rockchip/common/security/dev_keys/Dev_Customization_Key.bin
+
+USE_STD_PKCS
+
+SignFormat 2
+HashFunction 2
+Key device/rockchip/common/security/dev_keys/Gprk2048dev.key
+UseAddress 0xFFF00000
+PsiSign 0xFFF00000 0x1BF00 0xFFF1BF00
+
+USE_STD_PKCS
+
+SignFormat 1
+Key device/rockchip/common/security/dev_keys/Mprk2048dev.key
+SECPACKTIMESTAMP
+SignSecPack
+
+Section BOOT_CORE_SLB
+USE_DER_SIGNATURES
+ImportBinary 0x2a10 device/rockchip/common/security/dev_keys/GpukCert.bin
+ImportBinary 0x2e10 device/rockchip/common/security/dev_keys/DevPubKeys.bin
+ImportBinary 0x3400 device/rockchip/common/security/dev_keys/Dev_Customization_Key.bin
+
+USE_STD_PKCS
+
+SignFormat 1
+Key device/rockchip/common/security/dev_keys/Mprk2048dev.key
+SECPACKTIMESTAMP
+SignSecPack
+
+END

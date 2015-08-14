@@ -1,0 +1,27 @@
+LOG
+
+Section CODE
+USE_DER_SIGNATURES
+USE_STD_PKCS
+SignFormat 1
+Key device/rockchip/common/security/prod_keys/Mprk2048prod.key
+SECPACKTIMESTAMP
+SignSecPack
+
+Section DSP_SW
+USE_DER_SIGNATURES
+USE_STD_PKCS
+SignFormat 1
+Key device/rockchip/common/security/prod_keys/Mprk2048prod.key
+SECPACKTIMESTAMP
+SignSecPack
+
+Section CUST
+USE_DER_SIGNATURES
+USE_STD_PKCS
+SignFormat 1
+Key device/rockchip/common/security/prod_keys/Mprk2048prod.key
+SECPACKTIMESTAMP
+SignSecPack
+
+END
