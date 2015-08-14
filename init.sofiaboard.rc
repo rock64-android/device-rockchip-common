@@ -41,6 +41,9 @@ on property:init.svc.setup_fs_nvm=stopped
     wait /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076
     mount ext4 /dev/block/platform/soc0/e0000000.noc/by-name/ImcPartID076 /nvm_fs_partition nosuid nodev data=journal
 
+    # After mount, owner is root
+    chown misc misc /nvm_fs_partition
+
     mkdir /nvm_fs_partition/factory 0660 misc misc
     mkdir /nvm_fs_partition/nvm 0770 misc audio
     restorecon_recursive /nvm_fs_partition
@@ -399,8 +402,8 @@ service setup_fs_nvm /system/bin/setup_fs_nvm /dev/block/platform/soc0/e0000000.
 service nvm_uagent /system/bin/nvm_useragent
     class main
     disabled
-    user root
-    group root
+    user radio
+    group misc radio
 
 service rftest /system/bin/rftest
     socket rftest stream 660 system inet
