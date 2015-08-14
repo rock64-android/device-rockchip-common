@@ -84,7 +84,7 @@ on post-fs-data
     chmod 660 /sys/class/misc/vmodem/modem_state
     mkdir /data/media 0770 media_rw media_rw
     mkdir /data/misc/dhcp 0770 dhcp dhcp
-    mkdir /data/fmd 0770 root root
+    mkdir /data/fmd 0770 radio radio
 
     chown dhcp dhcp /data/misc/dhcp
     setprop vold.post_fs_data_done 1
@@ -462,7 +462,7 @@ service pluginservice /system/bin/pluginservice
 
 service fmd /system/bin/fmd -c /dev/fmdev_device -l /data/fmd/fmd.log -p /data/fmd/fmd.log.prev
     class main
-    user root
+    user radio
     oneshot
     group system radio
 # ----------------- BEGIN MIX-IN DEFINITIONS -----------------

@@ -109,3 +109,4 @@
 /dev/vmodem 0660	radio	radio
 /etc/msm/	0660	radio	radio
 /dev/nvmdev 0660	radio	radio
+/dev/fmdev_device	0660	radio	radio
