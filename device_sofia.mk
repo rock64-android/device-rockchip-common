@@ -169,7 +169,7 @@ PRODUCT_COPY_FILES += \
 # Camera ISP tuing
 ifeq ($(USE_CAMERA_HAL_3),true)
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/../common/tuning_cam/00ov8858.aiqb:system/etc/atomisp/00ov8858.aiqb $(LOCAL_PATH)/01ov2680.aiqb:system/etc/atomisp/01ov2680.aiqb
+	$(LOCAL_PATH)/../common/tuning_cam/00ov8858.aiqb:system/etc/atomisp/00ov8858.aiqb $(LOCAL_PATH)/../common/tuning_cam/01ov2680.aiqb:system/etc/atomisp/01ov2680.aiqb
 else
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/../common/tuning_cam/tuning_cam_OV8858_cmk-cb0695-fv1.bin:system/etc/tuning_cam0.bin\
