@@ -1,0 +1,776 @@
+#include "mem_static_internal.h"
+
+#if !defined(INCLUDED_IN_C_FILE)
+/* Extended macros to support different section attributes (linker's as well as own defined) */
+#define DEFINE_SECTION_START_EXT(_NAME_, _EXEC_BASE_, _LOAD_BASE_, _ATTR_, _XATTR_) \
+   _NAME_ (_EXEC_BASE_) _ATTR_ : AT (_LOAD_BASE_) \
+  { \
+    Load$$##_NAME_##$$Base = (LOADADDR(_NAME_)); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+#define DEFINE_SECTION_START_EXEC_CONT_EXT(_NAME_, _ATTR_, _XATTR_) \
+  _NAME_ _ATTR_ : AT (LOAD_##_NAME_##_START) \
+  { \
+    Load$$##_NAME_##$$Base = (LOADADDR(_NAME_)); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+#define DEFINE_SECTION_START_EXEC_EXT(_NAME_, _EXEC_BASE_, _ATTR_, _XATTR_) \
+  _NAME_  (_EXEC_BASE_) _ATTR_ : AT (LOAD_##_NAME_##_START) \
+  { \
+    Load$$##_NAME_##$$Base = (LOADADDR(_NAME_)); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+#define DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(_NAME_, _ATTR_, _XATTR_) \
+  _NAME_ _ATTR_ : \
+  { \
+    Load$$##_NAME_##$$Base = ABSOLUTE(.); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+#define DEFINE_SECTION_START_NO_LOAD_EXEC_EXT(_NAME_, _EXEC_BASE_, _ATTR_, _XATTR_) \
+  _NAME_  (_EXEC_BASE_) _ATTR_ :  \
+  { \
+    Load$$##_NAME_##$$Base = ABSOLUTE(.); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+#define DEFINE_SECTION_START(_NAME_, _EXEC_BASE_, _LOAD_BASE_) DEFINE_SECTION_START_EXT(_NAME_, _EXEC_BASE_, _LOAD_BASE_, , DEFAULT_ATTR) 
+#define DEFINE_SECTION_START_EXEC_CONT(_NAME_) DEFINE_SECTION_START_EXEC_CONT_EXT(_NAME_, , DEFAULT_ATTR)
+#define DEFINE_SECTION_START_EXEC(_NAME_, _EXEC_BASE_) DEFINE_SECTION_START_EXEC_EXT(_NAME_, _EXEC_BASE_, , DEFAULT_ATTR)
+#define DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(_NAME_) DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(_NAME_, , DEFAULT_ATTR)
+#define DEFINE_SECTION_START_NO_LOAD_EXEC(_NAME_, _EXEC_BASE_) DEFINE_SECTION_START_NO_LOAD_EXEC_EXT(_NAME_, _EXEC_BASE_, , DEFAULT_ATTR)
+
+#define DEFINE_SECTION_END(_NAME_) \
+    . = ALIGN(4); \
+    } \
+	Load$$##_NAME_##$$Length = SIZEOF(_NAME_); \
+	Image$$##_NAME_##$$Length = SIZEOF(_NAME_); \
+	Load$$##_NAME_##$$ZI$$Length = 0; \
+	Image$$##_NAME_##$$ZI$$Length = 0; \
+	Load$$##_NAME_##$$Limit = LOADADDR(_NAME_) + SIZEOF(_NAME_); \
+	Image$$##_NAME_##$$Limit = ADDR(_NAME_) + SIZEOF(_NAME_); \
+	. = .;
+
+#define DEFINE_MARKER_HERE(_NAME_) \
+  _NAME_ = .;
+
+#define DEFINE_MARKER(_NAME_, _ADDR_) \
+  _NAME_ = _ADDR_;
+
+#define DEFINE_ALIGN(_SIZE_) \
+  . = ALIGN(_SIZE_);
+
+/* ToDo: add support for binary sections */  
+#define DEFINE_BINARY_SECTION_START(_NAME_, _BASE_, _SIZE_) \
+  _NAME_ (_BASE_) (NOLOAD) : \
+  { \
+    Load$$##_NAME_##$$Base = ABSOLUTE(.); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+
+#define DEFINE_BINARY_SECTION_START_CONT(_NAME_, _SIZE_) \
+  _NAME_ (NOLOAD) : \
+  { \
+    Load$$##_NAME_##$$Base = ABSOLUTE(.); \
+    Image$$##_NAME_##$$Base = ABSOLUTE(.); 
+
+#define DEFINE_BINARY_SECTION_END(_NAME_, _SIZE_) \
+    Load$$##_NAME_##$$Length = SIZEOF(_NAME_); \
+    Image$$##_NAME_##$$Length = SIZEOF(_NAME_); \
+    Load$$##_NAME_##$$ZI$$Length = 0; \
+    Image$$##_NAME_##$$ZI$$Length = 0; \
+    Load$$##_NAME_##$$Limit = LOADADDR(_NAME_) + SIZEOF(_NAME_); \
+    Image$$##_NAME_##$$Limit = ADDR(_NAME_) + SIZEOF(_NAME_); \
+  } \
+  . += _SIZE_;
+  
+#define MMAP_ADD_LOAD_REGION(_PRG_NAME_, _CLASS_, _REGION_, _BASE_, _SIZE_)   
+
+#define MMAP_ADD_DISC_SECTION_EMPTY(ID, _BASE_, _SIZE_)
+
+#else
+#if !defined (DEFINE_MARKER_HERE)
+#define DEFINE_MARKER_HERE(_NAME_)
+#endif 
+
+#if !defined (DEFINE_MARKER)
+#define DEFINE_MARKER(_NAME_, _ADDR_)
+#endif
+
+#if !defined (DEFINE_ALIGN)
+#define DEFINE_ALIGN(_SIZE_)
+#endif
+
+#if !defined (DEFINE_BINARY_SECTION_START)
+#define DEFINE_BINARY_SECTION_START(_NAME_, _BASE_, _SIZE_)
+#endif
+
+#if !defined (DEFINE_BINARY_SECTION_START_CONT)
+#define DEFINE_BINARY_SECTION_START_CONT(_NAME_, _SIZE_)
+#endif
+
+#if !defined (DEFINE_BINARY_SECTION_END)
+#define DEFINE_BINARY_SECTION_END(_NAME_, _SIZE_)
+#endif
+
+#if !defined (DEFINE_SECTION_END)
+#define DEFINE_SECTION_END(_NAME_)
+#endif
+
+#if !defined (DEFINE_SECTION_START_EXT)
+#define DEFINE_SECTION_START_EXT(_NAME_, _EXEC_BASE_, _LOAD_BASE_, _ATTR_, _XATTR_)
+#endif
+
+#if !defined (DEFINE_SECTION_START_EXEC_CONT_EXT)
+#define DEFINE_SECTION_START_EXEC_CONT_EXT(_NAME_, _ATTR_, _XATTR_)
+#endif
+
+#if !defined (DEFINE_SECTION_START_EXEC_EXT)
+#define DEFINE_SECTION_START_EXEC_EXT(_NAME_, _EXEC_BASE_, _ATTR_, _XATTR_)
+#endif
+
+#if !defined (DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT)
+#define DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(_NAME_, _ATTR_, _XATTR_)
+#endif
+
+#if !defined (DEFINE_SECTION_START_NO_LOAD_EXEC_EXT)
+#define DEFINE_SECTION_START_NO_LOAD_EXEC_EXT(_NAME_, _EXEC_BASE_, _ATTR_, _XATTR_)
+#endif
+
+#if !defined (DEFINE_SECTION_START)
+#define DEFINE_SECTION_START(_NAME_, _EXEC_BASE_, _LOAD_BASE_) DEFINE_SECTION_START_EXT(_NAME_, _EXEC_BASE_, _LOAD_BASE_, , DEFAULT_ATTR)
+#endif
+
+#if !defined (DEFINE_SECTION_START_EXEC_CONT)
+#define DEFINE_SECTION_START_EXEC_CONT(_NAME_) DEFINE_SECTION_START_EXEC_CONT_EXT(_NAME_, , DEFAULT_ATTR)
+#endif
+
+#if !defined (DEFINE_SECTION_START_EXEC)
+#define DEFINE_SECTION_START_EXEC(_NAME_, _EXEC_BASE_) DEFINE_SECTION_START_EXEC_EXT(_NAME_, _EXEC_BASE_, , DEFAULT_ATTR)
+#endif
+
+#if !defined (DEFINE_SECTION_START_NO_LOAD_EXEC_CONT)
+#define DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(_NAME_) DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(_NAME_, , DEFAULT_ATTR)
+#endif
+
+#if !defined (DEFINE_SECTION_START_NO_LOAD_EXEC)
+#define DEFINE_SECTION_START_NO_LOAD_EXEC(_NAME_, _EXEC_BASE_) DEFINE_SECTION_START_NO_LOAD_EXEC_EXT(_NAME_, _EXEC_BASE_, , DEFAULT_ATTR)
+#endif
+#endif
+    
+#if !defined(INCLUDED_IN_C_FILE)
+ENTRY(bootstrap)
+
+/* OUTPUT_ARCH(i386); */
+
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+SECTIONS 
+{
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+        /DISCARD/ :
+        {
+                *(.eh_frame*)
+                *(.rel.*)
+                *(.igot.plt)
+                *(.iplt)
+                *(.comment)
+                *(.note*)
+        }
+#endif
+
+  /* External RAM code starts */
+  DEFINE_MARKER(EXTRAM_CODE_START, MODEM_SW_RO_BASE)
+
+  /* First section should have both execution and load address defined */
+  DEFINE_SECTION_START(BOOT_VECT_SECTION, MODEM_SW_RO_BASE, LOAD_MODEM_SW_RO_REGION)
+#if !defined(INCLUDED_IN_C_FILE)
+      KEEP(*("BOOTSTRAP"))
+      . = 0x408;
+      KEEP(*("BOOT_VECT"))
+	  *init_hw.o
+  DEFINE_SECTION_END(BOOT_VECT_SECTION)
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC(NVM_TOOL_CFG_SECTION, MMAP_MODEM_SW_STATIC_CFG_BASE)
+#if !defined(INCLUDED_IN_C_FILE)  
+    * (NVM_TOOL_CFG)
+  DEFINE_SECTION_END(NVM_TOOL_CFG_SECTION)
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC(EXEC_MODEM_SW_CODE_FI_SECTION, MMAP_MODEM_SW_FI_BASE)
+#if !defined(INCLUDED_IN_C_FILE)  
+      DEFINE_ALIGN(4K)  
+      * (FI_ROCODE)
+      * (.fi_code)
+      *crt.o
+      *mmu.o (.rodata* .text*)
+      *cache.o (.rodata* .text*)
+      *scu_common_hal.o (.rodata* .text*)       
+      *pow.o (.rodata* .text*)
+      *cgu_hal.o (.rodata* .text*)         
+      *ebu_ram_cfg.o (.rodata* .text*)     
+      *ebu_rom_cfg.o (.rodata* .text*) 
+      *ebu_mem_cfg.o (.rodata* .text*) 
+      *ebu.o (.rodata* .text*) 
+      *mem_static_info.o (.rodata* .text*)         
+      *mem_static_cfg.o  (.rodata* .text*)
+      *mem_static_cfg_v7.o (.rodata* .text*)
+      *emic* (.rodata* .text*)
+      *emif* (.rodata* .text*)
+      *libc.a (.rodata*, .text*)
+      *vsys_platform.o (.rodata*, .text*)
+      *meas_platform.o (.rodata*, .text*)
+      * (MEAS_DO_NOT_RELOCATE_TO_RAM)
+      * (CGU_DO_NOT_RELOCATE_TO_EXT_RAM)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_CODE_FI_SECTION)
+#endif  
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(SYS_VER_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+      *sys_version.o (.rodata*)
+      * (SYSVER_SECTION)
+  DEFINE_SECTION_END(SYS_VER_SECTION)
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_CODE_BI_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+      DEFINE_ALIGN(64)
+      * (SDL_YINIT)
+      * (BI_RODATA  BI_ROCODE)
+      * (EE_RAM_CODE_SLOW) 
+      * (EXT_ROCODE  EXT_RODATA)
+      * (PI_P_RODATA  PI_P_ROCODE)        
+      * (PI_NP_RODATA  PI_NP_ROCODE)
+      * (TCM_ROCODE)       
+      * (.text*)  
+      *(.rodata*)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_CODE_BI_SECTION)
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)               
+  tls_init :
+  {
+    DEFINE_ALIGN(64)
+    tls_init_tab = .;
+    *(rwpi_initdata)
+    . += 64;
+    tls_init_end = .;
+  } = 0
+
+  gs_base_addr1 :
+  {
+    gs_inst1 = .;
+    *(gs_base_addr1)
+  }
+
+  gs_base_addr2 :
+  {
+    gs_inst2 = .;
+    *(gs_base_addr2)
+  }
+#endif 
+
+/* ToDo: PPI & PNPI are not used in BHN_3G and not used as of now, enable with generic approach later */  
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_CODE_PPI_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_SECTION_END(EXEC_MODEM_SW_CODE_PPI_SECTION)
+#endif  
+  
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_CODE_PNPI_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_SECTION_END(EXEC_MODEM_SW_CODE_PNPI_SECTION)
+#endif  
+
+  /* External RAM code ends */
+  
+/*  DEFINE_ALIGN(4M) align to 4MB to have larger page table as much as possible */
+
+  DEFINE_MARKER(EXTRAM_CODE_LENGTH, (. - EXTRAM_CODE_START))
+
+#if !defined(INCLUDED_IN_C_FILE)
+/* In case VMM Mobilevisor CERT is not placed in External RAM - dependency with bootloader */
+#if defined(VMM_MOBILEVISOR)
+  ASSERT(( . <= MMAP_FIRMWARE_IMAGE_BASE_ADDRESS), "Error: External RAM code usage is beyond the limit")
+#else
+  ASSERT(( . <= MMAP_CERT_SECTION_BASE), "Error: External RAM code usage is beyond the limit")
+#endif
+#endif
+
+/* --------------------------------------------------------------------------------------------------------------------------------
+   Modem hardware registers layout
+   -------------------------------------------------------------------------------------------------------------------------------- */
+#if !defined(INCLUDED_IN_C_FILE)  
+    Image$$EXEC_MODEM_HW_REGS$$Base = MMAP_MODEM_SW_PERIP_BASE;
+#if defined (SF3G_ES1_CHIP_WA)
+    #include <register_layout_es1.scf>
+#else
+    #include <register_layout.scf>
+#endif
+    Image$$EXEC_MODEM_HW_REGS$$Length = MMAP_MODEM_SW_PERIP_SIZE;
+    Image$$EXEC_MODEM_HW_REGS$$Limit = (MMAP_MODEM_SW_PERIP_BASE+MMAP_MODEM_SW_PERIP_SIZE);
+#endif  /* INCLUDED_IN_C_FILE */
+    DEFINE_MARKER(EXEC_MODEM_SW_IRAM_DATA_START, IRAM_DATA_START)
+  
+  DEFINE_SECTION_START_EXEC_EXT(EXEC_MODEM_SW_IRAM_MMU_PAGETABLE_SECTION, IRAM_DATA_START,  , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)    
+    *(MMU_PAGETABLE)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_IRAM_MMU_PAGETABLE_SECTION)
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_ALIGN(4K)
+#endif
+
+  DEFINE_SECTION_START_EXEC_CONT(EXEC_MODEM_SW_DATA_IRAM_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+/*    * (DMA_CONTROL)   Moved to ERAM due to insufficient space in IRAM */
+    * (INT_ZIDATA INT_RWDATA)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_IRAM_SECTION)
+#endif  
+
+  DEFINE_SECTION_START_EXEC_CONT_EXT(MODEM_SW_DATA_IRAM_NOINIT_SECTION, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE) 
+        DEFINE_ALIGN(64) 
+        * (NOINIT)
+        * (INT_NOINIT)
+  DEFINE_SECTION_END(MODEM_SW_DATA_IRAM_NOINIT_SECTION)
+#endif  
+
+  DEFINE_MARKER(IRAM_BOOTSTACK_END, MMAP_MODEM_SW_IRAM_BOOTSTACK_BASE)
+  
+  DEFINE_SECTION_START_EXEC_EXT(IRAM_BOOTINFO_SECTION, IRAM_BOOTINFO_SECTION_BASE, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)  
+      *bootinfo.o (.bss*)
+      *bootinfo.o (.data*)
+  DEFINE_SECTION_END(IRAM_BOOTINFO_SECTION)
+#endif
+
+  DEFINE_MARKER_HERE(EXEC_MODEM_SW_IRAM_DATA_END)
+
+#if !defined(INCLUDED_IN_C_FILE)  
+  ASSERT((. <= IRAM_CODE_START), "Error: IRAM data usage is beyond the limit")
+#endif
+
+  DEFINE_SECTION_START_EXEC_EXT(IRAM_VER_HWID_BOOT_SYNC_SECTION, MMAP_MODEM_SW_IRAM_HWID_SYNC_BASE, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)
+        *(VER_HWID_BOOT_SYNC)
+  DEFINE_SECTION_END(IRAM_VER_HWID_BOOT_SYNC_SECTION)
+#endif
+  
+  DEFINE_SECTION_START_EXEC(IRAM_NOCLEARDATA_SECTION, MMAP_MODEM_SW_IRAM_NOCLEARDATA_BASE)
+#if !defined(INCLUDED_IN_C_FILE)
+        DEFINE_ALIGN(64)  
+        * (NOCLEAR)
+        * (INT_NOCLEAR)
+  DEFINE_SECTION_END(IRAM_NOCLEARDATA_SECTION)
+#endif  
+
+#if defined(FEAT_VMM_SUPPORT) || defined(VMM_MOBILEVISOR)
+  DEFINE_SECTION_START_EXEC(IRAM_NOCLEARDATA_NEXT_BOOTMODE_REQ_SECTION, MMAP_MODEM_SW_IRAM_NEXT_BOOTMODE_REQ_BASE)
+#if !defined(INCLUDED_IN_C_FILE)
+  DEFINE_ALIGN(64)
+  DEFINE_SECTION_END(IRAM_NOCLEARDATA_NEXT_BOOTMODE_REQ_SECTION)
+#endif
+#endif
+
+  DEFINE_SECTION_START_EXEC(EXEC_MODEM_SW_CODE_IRAM, IRAM_CODE_START)
+#if !defined(INCLUDED_IN_C_FILE)    
+      DEFINE_ALIGN(4K)
+      * (EE_RAM_CODE_FAST)        
+      * (FLASH_CONTROL)           
+      * (USB_CONTROL)             
+      * (IRAM_CONTROL)            
+      * (WFI_CONTROL)             
+      * (WFI_IDLE_LOOP)
+      * (INT_ROCODE  INT_RODATA) /* Readonly code and data in internal ram. */
+      *trap_asm.o (trap_handlers) /* place trap handlers in internal mmu protected RAM */
+      *rtt.o (TCM_ROCODE)
+      *wakeup_isr.o
+      *rtt_gptu_hal.o (TCM_ROCODE)
+      *exceptions_asm.o (.text*)
+      *exception.c (.text*)
+      *tx_usr_trace_interrupt_control.o (.text*)
+      *tx_usr_trace_insert.o (.text*)    
+  DEFINE_SECTION_END(EXEC_MODEM_SW_CODE_IRAM)
+#endif  
+  
+  DEFINE_SECTION_START_EXEC_CONT(EXEC_MODEM_SW_PREINIT)
+#if !defined(INCLUDED_IN_C_FILE)    
+      * (INT_PREINIT_ROCODE  INT_PREINIT_RODATA)
+      * (CGU_PRE_INIT)
+      * (EBU_PRE_INIT)
+      * (CACHE_IRAM_CODE)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_PREINIT)
+#endif  
+
+  /* IRAM ends */
+  
+#if !defined(INCLUDED_IN_C_FILE)
+  /* Assumption is that EXEC_MODEM_SW_PREINIT is always at the end of IRAM */
+  _end = LOADADDR(EXEC_MODEM_SW_PREINIT) + SIZEOF(EXEC_MODEM_SW_PREINIT); 
+  _end = ALIGN(4K);
+#endif  
+ 
+  DEFINE_MARKER_HERE(Image$$MODEM_SW_CODE_IRAM_END$$Base)
+
+#if !defined(INCLUDED_IN_C_FILE)  
+  ASSERT((. <= MMAP_MODEM_SW_IRAM_BASE + MMAP_MODEM_SW_IRAM_SIZE), "Error: IRAM code usage is beyond the limit") 
+#endif
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------
+   External to Modem
+   -------------------------------------------------------------------------------------------------------------------------------- */
+#if !defined(INCLUDED_IN_C_FILE)  
+    #include <modem_sw_ext.scf>
+#endif  /* INCLUDED_IN_C_FILE */
+  
+  /* External RAM data starts */
+  DEFINE_MARKER_HERE(Image$$EXEC_MODEM_SW_EXTRAM_DATA_START$$Base)
+  DEFINE_MARKER_HERE(Image$$EXTERN_RAM_DATA_START$$Base)  
+
+  DEFINE_MARKER(EXEC_MODEM_SW_EXTRAM_NOCACHE_DATA_START, MODEM_SW_RW_BASE)
+  
+#if !defined(INCLUDED_IN_C_FILE)
+  . = MODEM_SW_RW_BASE;
+#endif
+#if !defined(PAGING_STRUCTS_IN_CACHE)
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(EXEC_MODEM_SW_EXTRAM_COARSE_PAGETABLE_SECTION, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)    
+        * (MMU_COARSE_TABLES)                  
+        * (MMU_DATA)  
+  DEFINE_SECTION_END(EXEC_MODEM_SW_EXTRAM_COARSE_PAGETABLE_SECTION)
+#endif  
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_ALIGN(4K)
+#endif
+  
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_NOCACHE_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)    
+    * (USB_HAL_BUFFERS)                    
+    * (DMA_CONTROL) /* Moved here due to insufficient space in IRAM */
+    * (NAND_NOCACHE_BUFFERS)               
+    * (FTL_NOCACHE_BUFFERS)    
+    DEFINE_ALIGN(64)             
+    * (UGDCI_MEMORY)   
+    * (URLC_POOLS)
+    * (GFX_MEM_NOCACHE_BUFFERS)            
+    * (MMCSD_NOCACHE_BUFFERS)
+    DEFINE_ALIGN(64)
+    * (SIO_EMM)  
+    DEFINE_ALIGN(64)                          
+    * (PBM_MEMORY)                         
+    * (MIPI_HSI_NOCACHE_BUFFERS)          
+    * (TAD_OCT_BUFF)                       
+    * (RW_DATA_NOCACHE_EXT)
+    * (RW_DATA_NOCACHE_NOCLEAR_EXT)
+    DEFINE_ALIGN(64)
+    * (UGDCI_MPDL_TB_INSTR_MEM)
+    DEFINE_ALIGN(64)
+    * (UGDCI_MPUL_TB_INSTR_MEM)
+#if !defined(IDI_TRANSPARENT_REG_ACCESS_SW_WA) && defined(SF3G_ES1_CHIP_WA)
+    * (RTC_REG)
+    * (AG_SCU_REG)
+    * (AG_PCL_REG)
+    * (HSI2_REG)
+    * (CGUABB_REG)
+    * (SPCUABB_REG)
+    * (PMU_REG)
+    * (HSI3_REG)
+    * (ST_ARBITER_ABB_REG)
+    * (ST_MON_ABB_REG)
+    * (MTM_REG)
+    * (MEAS_REG)
+    * (ST_SBC1MON_ABB_REG)
+    * (ST_SBC2MON_ABB_REG)
+    * (ACI_REG)
+    * (FMRREGISTERS_REG)
+    * (AFE_REG)
+    * (BTIF_REG)
+    * (BT_AU_IF_REG)
+    * (AG_I2C_REG)
+    * (ST_SBC3MON_ABB_REG)
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_ALIGN(4K)
+#endif
+
+Image$$FIRMWARE_IMAGE_RESERVED_SECTION$$Base = .;
+Load$$FIRMWARE_IMAGE_RESERVED_SECTION$$Base = .;
+    * (FIRMWARE_IMAGE)
+Image$$FIRMWARE_IMAGE_RESERVED_SECTION$$Limit = .;
+Load$$FIRMWARE_IMAGE_RESERVED_SECTION$$Limit = .;
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_NOCACHE_SECTION)
+#endif  
+
+#if defined(IDI_TRANSPARENT_REG_ACCESS_SW_WA)
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_ALIGN(4K)
+#endif
+  DEFINE_MARKER_HERE(EXEC_MODEM_SW_DATA_IDI_WA_SECTION)
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_IDI_WA_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+  *(IDI_WA)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_IDI_WA_SECTION)
+#endif
+  DEFINE_MARKER(EXEC_MODEM_SW_DATA_IDI_WA_LENGTH, (. - EXEC_MODEM_SW_DATA_IDI_WA_SECTION))
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_ALIGN(4K)
+#endif  
+  
+  DEFINE_MARKER(EXTRAM_NOCACHE_DATA_LENGTH, . - EXEC_MODEM_SW_EXTRAM_NOCACHE_DATA_START)
+ 
+  /* External RAM cached data starts */
+  DEFINE_MARKER_HERE(EXEC_MODEM_SW_EXTRAM_CACHE_DATA_START)
+#if defined(PAGING_STRUCTS_IN_CACHE)
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(EXEC_MODEM_SW_EXTRAM_COARSE_PAGETABLE_SECTION, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)    
+        * (MMU_COARSE_TABLES)                  
+        * (MMU_DATA)  
+  DEFINE_SECTION_END(EXEC_MODEM_SW_EXTRAM_COARSE_PAGETABLE_SECTION)
+#endif  
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)    
+  DEFINE_ALIGN(64)
+#endif 
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(EXEC_MODEM_SW_DATA_NOINIT_SECTION, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)  
+        * (EXT_NOINIT)
+	. = ALIGN(8);
+	. += 8K;
+	TX_SYSTEM_STACK = .;
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_NOINIT_SECTION)
+#endif  
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(EXEC_MODEM_SW_DATA_EXTERN_RAM_ESL_SECTION, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)    
+     * (ESL_EXT)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_EXTERN_RAM_ESL_SECTION)
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)
+  DEFINE_ALIGN(64)
+#endif 
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+        * (RW_DATA_EXT)
+        * (TCM_RWDATA)
+        * (TCM_ZIDATA) /* Moved here because of "ld: warning: section `EXEC_MODEM_SW_BSS_DATA_SECTION' type changed to PROGBITS" */
+        * (__svc_stack)
+        *(.data*)    
+        *(.got.plt)
+        *(.got)
+        *(.ctors)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_SECTION)
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)
+DEFINE_ALIGN(64)
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(inst_mem1)
+#if !defined(INCLUDED_IN_C_FILE)
+/*  inst_mem1 :
+  { */
+    inst_mem1 = .;
+    tls_data_init_tab = .;
+    *(.tdata)
+    tls_data_init_tab_end = .;
+    tls_data_init_tab_len = . - tls_data_init_tab;
+    . = ALIGN ( 64 );
+    *(.tbss)
+    *(.tcommon)
+    . = ALIGN ( 64 );
+    inst_mem1_end = .;
+/*  } */
+  DEFINE_SECTION_END(inst_mem1)
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(inst_mem2)
+#if !defined(INCLUDED_IN_C_FILE)
+/*  inst_mem2 :
+  { */
+    inst_mem2 = .;
+    . += SIZEOF(inst_mem1);
+    . = ALIGN ( 64 );
+    inst_mem2_end = .;
+/*  } */
+  DEFINE_SECTION_END(inst_mem2)
+  inst_mem_len = inst_mem2 - inst_mem1;
+
+/* construction of GDT entries for instance memory base pointers */
+  seg_desc_rest = ( 0 << 23 ) | /* Granularity */
+                  ( 1 << 22 ) | /* 16/32 bit default op mode */
+                  ( 0 << 20 ) | /* Available */
+                  ( 1 << 15 ) | /* Present */
+                  ( 0 << 13 ) | /* DPL */
+                  ( 1 << 12 ) | /* Descriptor type */
+                  ( 0 << 11 ) | /* Code/Data segment */
+                  ( 0 << 10 ) | /* Expansion direction */
+                  ( 1 <<  9 ) | /* Writeable */
+                  ( 1 <<  8 );  /* Accessed */
+
+  seg_desc_inst1_lo = ( ( gs_inst1 & 0x0000FFFF ) << 16 ) | 7;
+  seg_desc_inst1_hi = ( ( gs_inst1 & 0x00FF0000 ) >> 16 ) |
+                        ( gs_inst1 & 0xFF000000 )         | seg_desc_rest;
+  seg_desc_inst2_lo = ( ( gs_inst2 & 0x0000FFFF ) << 16 ) | 7;
+  seg_desc_inst2_hi = ( ( gs_inst2 & 0x00FF0000 ) >> 16 ) |
+                        ( gs_inst2 & 0xFF000000 )         | seg_desc_rest;
+
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_iui_os_contexts_bhs = .;
+#endif
+  
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_IUI_OS_BHS_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (iui_os_contexts_bhs)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_IUI_OS_BHS_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_iui_os_contexts_bhs = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_uta_os_contexts_threads = .;
+#endif  
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_OS_THREADS_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (uta_os_contexts_threads)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_OS_THREADS_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_uta_os_contexts_threads = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_UtaSysInfoDb = .;  
+#endif
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_SYSINFODB_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (UtaSysInfoDb)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_SYSINFODB_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_UtaSysInfoDb = .;
+#endif
+
+  DEFINE_ALIGN(4K)
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_uta_boot_entity_hook_section = .;  
+#endif
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_HOOK_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (uta_boot_entity_hook_section)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_HOOK_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_uta_boot_entity_hook_section = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_uta_boot_entity_dep_section = .;
+#endif
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_DEP_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (uta_boot_entity_dep_section)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_DEP_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_uta_boot_entity_dep_section = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_uta_boot_entity_info_section = .;
+#endif
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_INFO_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (uta_boot_entity_info_section)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_INFO_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_uta_boot_entity_info_section = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_uta_boot_entity_reverse_dep_section = .;
+#endif
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_REV_DEP_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (uta_boot_entity_reverse_dep_section)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_REV_DEP_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_uta_boot_entity_reverse_dep_section = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+__start_uta_boot_entity_reverse_dep_info_section = .;
+#endif
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_REV_DEP_INFO_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)
+    * (uta_boot_entity_reverse_dep_info_section)
+#endif
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_UTA_BOOT_ENTITY_REV_DEP_INFO_SECTION)
+#if !defined(INCLUDED_IN_C_FILE)  
+__stop_uta_boot_entity_reverse_dep_info_section = .;
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+  DEFINE_ALIGN(64)  
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(EXEC_MODEM_SW_DATA_BSS_SECTION, , (XATTR_BSS | XATTR_INIT))  
+#if !defined(INCLUDED_IN_C_FILE)    
+        * (.bss*)
+  * (COMMON)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_BSS_SECTION)
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)
+  DEFINE_ALIGN(4K)
+#endif
+
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT_EXT(EXEC_MODEM_SW_DATA_NOCLEAR_SECTION, , XATTR_NOINIT)
+#if !defined(INCLUDED_IN_C_FILE)
+	 * (NOCLEAR_EXT)
+  DEFINE_SECTION_END(EXEC_MODEM_SW_DATA_NOCLEAR_SECTION)
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+  DEFINE_ALIGN(64)  
+#endif
+  
+  DEFINE_SECTION_START_NO_LOAD_EXEC_CONT(EXTERN_RAM_HEAP_SECTION_START)
+#if !defined(INCLUDED_IN_C_FILE)    
+        * (CMM_HEAP_DEF)
+  DEFINE_SECTION_END(EXTERN_RAM_HEAP_SECTION_START)
+  DEFINE_MARKER_HERE(Image$$EXTERN_RAM_HEAP_SECTION_END$$Base)
+#endif  
+
+#if !defined(INCLUDED_IN_C_FILE)  
+  DEFINE_ALIGN(4K)
+#endif  
+
+  DEFINE_MARKER(EXTRAM_CACHE_DATA_LENGTH, . - EXEC_MODEM_SW_EXTRAM_CACHE_DATA_START)
+  
+  /* External RAM data ends here */
+  DEFINE_MARKER_HERE(EXEC_MODEM_SW_EXTRAM_DATA_END)
+  DEFINE_MARKER_HERE(Image$$EXEC_MODEM_SW_EXTRAM_DATA_END$$Base)
+  
+  DEFINE_MARKER(EXEC_MODEM_SW_EXTRAM_VCPU_SHARED_MEM_START, EXTRAM_VCPU_SHARED_MEM_BASE)
+  DEFINE_MARKER(EXEC_MODEM_SW_EXTRAM_VCPU_SHARED_MEM_END, (EXTRAM_VCPU_SHARED_MEM_BASE+EXTRAM_VCPU_SHARED_MEM_SIZE))
+  
+#if !defined(INCLUDED_IN_C_FILE)  
+  ASSERT((. <= (MODEM_EXTRAM_BASE+MMAP_MODEM_SW_EXTRAM_SIZE)), "Error: External RAM usage is beyond the limit") 
+#endif
+
+#if !defined(INCLUDED_IN_C_FILE)
+}
+#endif
