@@ -1,8 +1,0 @@
-nvm:cal_prodparm.cust_parms.flex_ver="add DC-DC band 1258 V1.1"
-store_nvm_sync(cal_prodparm)
-nvm:fix_rf_ue2.tx_fix.tx3g_config_table.tx_max_pwr_sue2[0,7]={368,368,368,368,0,0,0,0}
-nvm:fix_rf_ue2.tx_fix.target_gmsk_output_power[0,79]={520,520,520,520,520,520,496,464,432,400,368,336,304,272,240,208,176,144,112,80,520,520,520,520,520,520,496,464,432,400,368,336,304,272,240,208,176,144,112,80,480,448,416,384,352,320,288,256,224,192,160,128,96,64,32,0,0,0,0,0,480,448,416,384,352,320,288,256,224,192,160,128,96,64,32,0,0,0,0,0}
-
-nvm:fix_rf_ue2.init_fix.sr_tx3g_calibtable_init_values[0].calib_chan=4182
-nvm:fix_rf_ue2.tx_fix.tx3g_config_table.calib_chan[0,7]={9750,9400,4182,0,0,0,0,0}
-store_nvm_sync(fix_rf_ue2)
