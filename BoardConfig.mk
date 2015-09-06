@@ -19,7 +19,9 @@
 
 TARGET_NO_KERNEL ?= false
 TARGET_PREBUILT_KERNEL ?= kernel/arch/arm/boot/zImage
-TARGET_PREBUILT_RESOURCE ?= kernel/resource.img
+ifneq ($(TARGET_PRODUCT),rk3188)
+ TARGET_PREBUILT_RESOURCE ?= kernel/resource.img
+endif
 
 TARGET_BOARD_PLATFORM ?= rk3288
 TARGET_BOARD_HARDWARE ?= rk30board
