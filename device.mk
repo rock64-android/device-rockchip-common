@@ -61,11 +61,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.ui.hw=true
 
 else
-ifeq ($(strip $(BOARD_USE_LOW_MEM)), true)
-include frameworks/native/build/tablet-dalvik-heap.mk
-else
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
-endif
 endif
 
 ifeq ($(strip $(BOARD_USE_LOW_MEM)), true)
