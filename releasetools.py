@@ -57,11 +57,6 @@ def InstallUboot(loader_bin, input_zip, info):
   info.script.Print("Writing uboot loader img...")
   info.script.WriteRawImage("/uboot", "uboot.img")
 
-def InstallRecovery(recovery_bin, input_zip, info):
-  common.ZipWriteStr(info.output_zip, "recovery.img", recovery_bin)
-  info.script.Print("Writing recovery img...")
-  info.script.WriteRawImage("/recovery", "recovery.img")
-
 def InstallCharge(charge_bin, input_zip, info):
   common.ZipWriteStr(info.output_zip, "charge.img", charge_bin)
   info.script.Print("Writing charge img..")
@@ -79,15 +74,6 @@ def FullOTA_InstallEnd(info):
     InstallUboot(uboot, info.input_zip, info)
   except KeyError:
     print "warning: no uboot.img in input target_files; not flashing uboot"
-
-  try:
-    recovery = info.input_zip.read("recovery.img")
-    print "write recovery now..."
-    InstallRecovery(recovery, info.input_zip, info)
-  except KeyError:
-    print "warning: no recovery.img in input target_files; not flashing recovery"
-
-
 
   try:
     charge = info.input_zip.read("charge.img")
