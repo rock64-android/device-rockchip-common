@@ -262,3 +262,6 @@ BOARD_HAS_REMOTECONTROL ?= false
 
 #Board use IOMMU
 BOARD_WITH_IOMMU ?= true
+
+#boot optimization
+BOARD_WITH_BOOT_BOOST ?= false
