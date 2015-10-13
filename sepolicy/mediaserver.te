@@ -11,7 +11,7 @@ allow mediaserver nvm_data_file:file create_file_perms;
 allow mediaserver mvpipe_device:chr_file rw_file_perms;
 allow mediaserver rpcd_data_file:dir r_dir_perms;
 allow mediaserver voemcrypto_device:chr_file rw_file_perms;
-allow mediaserver default_prop:property_service set;
+#allow mediaserver default_prop:property_service set;
 allow mediaserver radio_device:chr_file rw_file_perms;
 allow gpsd socket_device:sock_file write;
 unix_socket_connect(mediaserver, rpc_recv, rpc);

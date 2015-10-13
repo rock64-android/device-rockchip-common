@@ -18,6 +18,7 @@ $(shell python $(LOCAL_PATH)/auto_generator.py $(TARGET_PRODUCT) preinstall_del)
 -include device/rockchip/$(TARGET_PRODUCT)/preinstall/preinstall.mk
 -include device/rockchip/$(TARGET_PRODUCT)/preinstall_del/preinstall.mk
 
+$(call inherit-product, device/rockchip/common/copy.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
 PRODUCT_AAPT_CONFIG ?= normal large xlarge hdpi xhdpi xxhdpi
@@ -109,20 +110,20 @@ PRODUCT_PACKAGES += \
     dhcpcd.conf
 ifeq ($(strip $(TARGET_ARCH)), arm)
 
-PRODUCT_PACKAGES += \
-    libpppoe-jni \
-    pppoe-service \
-    pppoe \
-    pppoe-sniff \
-    pppoe-repay 
- 
-PRODUCT_SYSTEM_SERVER_JARS += \
-    pppoe-service 
+#PRODUCT_PACKAGES += \
+#    libpppoe-jni \
+#    pppoe-service \
+#    pppoe \
+#    pppoe-sniff \
+#    pppoe-repay 
+# 
+#PRODUCT_SYSTEM_SERVER_JARS += \
+#    pppoe-service 
 #$_rbox_$_modify_$_chenzhi_20120309: add android.software.pppoe.xml
-PRODUCT_COPY_FILES += \
-       frameworks/native/data/etc/android.software.pppoe.xml:system/etc/permissions/android.software.pppoe.xml
+#PRODUCT_COPY_FILES += \
+#       frameworks/native/data/etc/android.software.pppoe.xml:system/etc/permissions/android.software.pppoe.xml
 #$_rbox_$_modify_$_chenzhi_20120309
-    $(call inherit-product, external/rp-pppoe/pppoe-copy.mk)
+    $(call inherit-product-if-exist, external/rp-pppoe/pppoe-copy.mk)
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
 include device/rockchip/common/samba/rk31_samba.mk
@@ -268,7 +269,6 @@ $(call inherit-product-if-exists, external/alsa-utils/copy.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.visual=false \
-    dalvik.vm.jniopts=warnonly
 
 ifeq ($(strip $(BOARD_HAVE_BLUETOOTH)),true)
     PRODUCT_PROPERTY_OVERRIDES += ro.rk.bt_enable=true
@@ -377,8 +377,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-PRODUCT_PACKAGES += \
-    librecovery_ui_$(TARGET_PRODUCT)
+#PRODUCT_PACKAGES += \
+#    librecovery_ui_$(TARGET_PRODUCT)
 
 # for bugreport
 ifneq ($(TARGET_BUILD_VARIANT), user)

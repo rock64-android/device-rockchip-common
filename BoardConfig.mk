@@ -84,9 +84,10 @@ BOARD_FLASH_BLOCK_SIZE ?= 131072
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),user)
+  ifeq ($(TARGET_BUILD_VARIANT), user)
     ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT ?= true
+      WITH_DEXPREOPT_PIC := true
     endif
   endif
 endif
@@ -97,55 +98,55 @@ TARGET_USES_LOGD ?= true
 
 # Sepolicy
 BOARD_SEPOLICY_DIRS ?= device/rockchip/common/sepolicy
-BOARD_SEPOLICY_REPLACE := \
-    domain.te
-BOARD_SEPOLICY_UNION ?=     \
-        akmd.te             \
-        app.te              \
-        device.te           \
-        bluetooth.te        \
-        drmserver.te        \
-        file.te             \
-        file_contexts       \
-        genfs_contexts      \
-        gpsd.te             \
-        init.te             \
-        kernel.te           \
-        mediaserver.te      \
-        netd.te             \
-        platform_app.te     \
-        recovery.te         \
-        rild.te             \
-        shell.te            \
-        surfaceflinger.te   \
-        system_app.te       \
-        system_server.te    \
-        uncrypt.te          \
-        vold.te             \
-        apk_logfs.te        \
-        crashlogd.te        \
-        dhcp.te             \
-        fg_conf.te          \
-        fmd.te              \
-        bootanim.te         \
-	 init_shell.te       \
-	 install_recovery.te \
-	 keystore.te         \
-	 lbsd.te             \
-	 logconfig.te        \
-	 nvm.te              \
-	 pekallfmrserver.te  \
-	 rpc.te              \
-	 service_contexts    \
-	 servicemanager.te   \
-	 setup_fs_nvm.te     \
-	 ueventd.te          \
-	 untrusted_app.te    \
-	 wpa.te              \
-	 zygote.te           \
-         rtl_wpa.te          \
-         esp_wpa.te          \
-         rftest.te
+#BOARD_SEPOLICY_REPLACE := \
+#    domain.te
+#BOARD_SEPOLICY_UNION ?=     \
+#        akmd.te             \
+#        app.te              \
+#        device.te           \
+#        bluetooth.te        \
+#        drmserver.te        \
+#        file.te             \
+#        file_contexts       \
+#        genfs_contexts      \
+#        gpsd.te             \
+#        init.te             \
+#        kernel.te           \
+#        mediaserver.te      \
+#        netd.te             \
+#        platform_app.te     \
+#        recovery.te         \
+#        rild.te             \
+#        shell.te            \
+#        surfaceflinger.te   \
+#        system_app.te       \
+#        system_server.te    \
+#        uncrypt.te          \
+#        vold.te             \
+#        apk_logfs.te        \
+#        crashlogd.te        \
+#        dhcp.te             \
+#        fg_conf.te          \
+#        fmd.te              \
+#        bootanim.te         \
+#	 init_shell.te       \
+#	 install_recovery.te \
+#	 keystore.te         \
+#	 lbsd.te             \
+#	 logconfig.te        \
+#	 nvm.te              \
+#	 pekallfmrserver.te  \
+#	 rpc.te              \
+#	 service_contexts    \
+#	 servicemanager.te   \
+#	 setup_fs_nvm.te     \
+#	 ueventd.te          \
+#	 untrusted_app.te    \
+#	 wpa.te              \
+#	 zygote.te           \
+#         rtl_wpa.te          \
+#         esp_wpa.te          \
+#         rftest.te
 
 
 # Recovery
@@ -160,12 +161,12 @@ RECOVERY_AUTO_USB_UPDATE ?= false
 
 # To use bmp as kernel logo, uncomment the line below to use bgra 8888 in recovery
 #TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_ROCKCHIP_PCBATEST ?= false
-TARGET_RECOVERY_UI_LIB ?= librecovery_ui_$(TARGET_PRODUCT)
+#TARGET_ROCKCHIP_PCBATEST ?= false
+#TARGET_RECOVERY_UI_LIB ?= librecovery_ui_$(TARGET_PRODUCT)
 TARGET_USERIMAGES_USE_EXT4 ?= true
 TARGET_USERIMAGES_USE_F2FS ?= false
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE ?= ext4
-RECOVERY_UPDATEIMG_RSA_CHECK ?= false
+#RECOVERY_UPDATEIMG_RSA_CHECK ?= false
 
 RECOVERY_BOARD_ID ?= false
 # RECOVERY_BOARD_ID ?= true
@@ -191,7 +192,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/rockchip/$(TARGET_PRODUCT)
 include device/rockchip/common/wifi_bt_common.mk
 
 # google apps
-BUILD_WITH_GOOGLE_MARKET ?= false
+BUILD_WITH_GOOGLE_MARKET ?= true
 BUILD_WITH_GOOGLE_MARKET_ALL ?= false
 
 # face lock
@@ -244,7 +245,7 @@ BOARD_HAS_GPS ?= false
 BOARD_HS_ETHERNET ?= true
 
 # manifest
-SYSTEM_WITH_MANIFEST ?= true
+SYSTEM_WITH_MANIFEST ?= false 
 
 # no battery
 BUILD_WITHOUT_BATTERY ?= false

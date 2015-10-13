@@ -6,4 +6,4 @@ allow surfaceflinger ddr_device:chr_file rw_file_perms;
 allow surfaceflinger rga_device:chr_file rw_file_perms;
 allow surfaceflinger ipp_device:chr_file rw_file_perms;
 allow surfaceflinger sysfs:file rw_file_perms;
-allow surfaceflinger default_prop:property_service set;
+#allow surfaceflinger default_prop:property_service set;

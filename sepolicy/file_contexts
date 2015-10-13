@@ -12,10 +12,10 @@
 /dev/ttyBT(.*)                  u:object_r:tty_device:s0
 
 # logcat
-/system/bin/logcat              u:object_r:logcat_exec:s0
+#/system/bin/logcat              u:object_r:logcat_exec:s0
 
 # crashlogd
-/system/bin/crashlogd           u:object_r:crashlogd_exec:s0
+#/system/bin/crashlogd           u:object_r:crashlogd_exec:s0
 
 # rpc (Server, Notifier and daemon)
 /system/bin/rpcServer           u:object_r:rpc_exec:s0
@@ -37,9 +37,9 @@
 /dev/fmdev_device               u:object_r:fmdev_device:s0
 
 # lbsd - gps domain
-/system/bin/lbsd                u:object_r:lbsd_exec:s0
-/system/bin/lbsd.sh             u:object_r:lbsd_exec:s0
-/dev/socket/lbsd                u:object_r:gps_socket:s0
+#/system/bin/lbsd                u:object_r:lbsd_exec:s0
+#/system/bin/lbsd.sh             u:object_r:lbsd_exec:s0
+#/dev/socket/lbsd                u:object_r:gps_socket:s0
 /dev/ttyGNSS0                   u:object_r:gps_device:s0
 
 # sensor
@@ -86,7 +86,7 @@
 /data/logs(/.*)?                u:object_r:log_data_file:s0
 
 # toolbox
-/system/bin/toolbox             u:object_r:toolbox_exec:s0
+#/system/bin/toolbox             u:object_r:toolbox_exec:s0
 
 # rild2
 /dev/socket/rild2               u:object_r:rild_socket:s0

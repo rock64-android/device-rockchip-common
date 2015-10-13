@@ -5,7 +5,7 @@ init_daemon_domain(rpc)
 
 allow rpc rpcd_data_file:dir rw_dir_perms;
 allow rpc rpcd_data_file:file create_file_perms;
-allow rpc default_prop:property_service set;
+#allow rpc default_prop:property_service set;
 allow rpc self:capability { setuid net_admin dac_override};
 allow rpc shell_exec:file { read execute open execute_no_trans };
 allow rpc toolbox_exec:file { read getattr open execute execute_no_trans };
