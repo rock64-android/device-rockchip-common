@@ -223,10 +223,6 @@ else
 BUILD_IEP := false
 endif
 
-#support ntfs
-PRODUCT_PACKAGES +=  \
-	ntfs-3g
-
 # charge
 PRODUCT_PACKAGES += \
     charger \
