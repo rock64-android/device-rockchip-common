@@ -4,3 +4,4 @@ allow untrusted_app pekallfmrserver:binder { call transfer };
 allow untrusted_app toolbox_exec:file { read getattr open execute execute_no_trans };
 allow untrusted_app kernel:system { module_request };
 allow untrusted_app video_device:chr_file { read write open ioctl };
+allow untrusted_app kernel:dir { search };

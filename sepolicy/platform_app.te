@@ -7,3 +7,4 @@ allow platform_app pekallfmrserver:binder { call transfer };
 #allow platform_app property_socket:sock_file { write };
 allow platform_app init:unix_stream_socket { connectto };
 #allow platform_app default_prop:property_service { set };
+allow platform_app video_device:chr_file { open read write ioctl };

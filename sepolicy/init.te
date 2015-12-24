@@ -3,3 +3,14 @@
 #recovery_only(`
 #  domain_trans(init, rootfs, busybox)
 #')
+
+
+allow init serial_device:chr_file { write ioctl };
+allow init kernel:system { module_request };
+
+allow init tmpfs:lnk_file { create };
+allow init devpts:chr_file { ioctl };
+allow init block_device:blk_file { getattr read write };
+
+allow init init:capability { sys_module };
+allow init nvm_block_device:blk_file { write };
