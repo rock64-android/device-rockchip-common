@@ -265,3 +265,6 @@ BOARD_WITH_IOMMU ?= true
 
 #boot optimization
 BOARD_WITH_BOOT_BOOST ?= false
+
+#optimise mem
+BOARD_WITH_MEM_OPTIMISE ?= false
