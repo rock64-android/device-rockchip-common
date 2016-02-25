@@ -191,7 +191,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/rockchip/$(TARGET_PRODUCT)
 include device/rockchip/common/wifi_bt_common.mk
 
 # google apps
-BUILD_WITH_GOOGLE_MARKET ?= true
+BUILD_WITH_GOOGLE_MARKET ?= false
 BUILD_WITH_GOOGLE_MARKET_ALL ?= false
 
 # face lock
