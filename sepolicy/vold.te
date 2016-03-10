@@ -14,3 +14,4 @@ allow vold nvm_block_device:blk_file rw_file_perms;
 allow vold nvm_data_file:dir r_dir_perms;
 allow vold fuse_device:chr_file rw_file_perms;
 allow vold toolbox_exec:file { execute execute_no_trans r_file_perms };
+allow vold zram_device:blk_file { open read write getattr };
