@@ -532,3 +532,9 @@ ifeq ($(strip $(BOARD_FORCE_UDISK_VISIBLE)),true)
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.udisk.visible=true
 endif
+
+#if disable safe mode to speed up booting time
+ifeq ($(strip $(BOARD_DISABLE_SAFE_MODE)),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.safemode.disabled=true
+endif
