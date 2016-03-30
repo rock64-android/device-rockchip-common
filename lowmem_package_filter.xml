@@ -37,7 +37,6 @@
 <app package="com.google.android.gms.persistent"/>
 <app package="com.google.android.youtube"/>
 <app package="com.android.email"/>
-<app package="android.process.acore"/>
 
 
 <service package="com.google.android.apps.docs.editors.slides"/>
