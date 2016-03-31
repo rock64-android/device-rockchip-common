@@ -13,14 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-$(shell python $(LOCAL_PATH)/auto_generator.py $(TARGET_PRODUCT) preinstall)
-$(shell python $(LOCAL_PATH)/auto_generator.py $(TARGET_PRODUCT) preinstall_del)
--include device/rockchip/$(TARGET_PRODUCT)/preinstall/preinstall.mk
--include device/rockchip/$(TARGET_PRODUCT)/preinstall_del/preinstall.mk
+
+# Prebuild apps
+ifneq ($(strip $(TARGET_DEVICE)), )
+    TARGET_DEVICE_DIR=$(shell test -d device && find device -maxdepth 4 -path '*/$(TARGET_DEVICE)/BoardConfig.mk')
+    TARGET_DEVICE_DIR := $(patsubst %/,%,$(dir $(TARGET_DEVICE_DIR)))
+
+    $(shell python device/rockchip/common/auto_generator.py $(TARGET_DEVICE_DIR) system_app)
+    $(shell python device/rockchip/common/auto_generator.py $(TARGET_DEVICE_DIR) preinstall)
+    $(shell python device/rockchip/common/auto_generator.py $(TARGET_DEVICE_DIR) preinstall_del)
+    -include $(TARGET_DEVICE_DIR)/system_app/preinstall.mk
+    -include $(TARGET_DEVICE_DIR)/preinstall/preinstall.mk
+    -include $(TARGET_DEVICE_DIR)/preinstall_del/preinstall.mk
+endif
 
 $(call inherit-product, device/rockchip/common/copy.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-
 PRODUCT_AAPT_CONFIG ?= normal large xlarge hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG ?= xhdpi
 

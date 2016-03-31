@@ -31,6 +31,10 @@ ifndef TARGET_PRODUCT
 TARGET_PRODUCT:=rk3036
 endif
 
+ifndef TARGET_DEVICE
+TARGET_DEVICE:=rk3036
+endif
+
 # Choose a variant to build.  If you don't pick one, the default is eng.
 # User is what we ship.  Userdebug is that, with a few flags turned on
 # for debugging.  Eng has lots of extra tools for development.
