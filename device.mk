@@ -132,6 +132,11 @@ PRODUCT_SYSTEM_SERVER_JARS += \
 PRODUCT_COPY_FILES += \
        frameworks/native/data/etc/android.software.pppoe.xml:system/etc/permissions/android.software.pppoe.xml
 
+ifneq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
+PRODUCT_PROPERTY_OVERRIDES += \
+       net.pppoe.cts=true
+endif
+
 $(call inherit-product-if-exists, external/rp-pppoe/pppoe-copy.mk)
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
