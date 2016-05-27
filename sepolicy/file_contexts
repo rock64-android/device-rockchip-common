@@ -149,3 +149,6 @@
 
 #add for glgps
 /system/bin/glgps    u:object_r:gpsd_exec:s0
+
+#for support ntfs
+/system/bin/ntfs-3g  u:object_r:ntfs3g_exec:s0

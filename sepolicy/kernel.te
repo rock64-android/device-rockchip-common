@@ -15,3 +15,4 @@ allow kernel metadata_file:dir rw_dir_perms;
 allow kernel metadata_file:file rw_file_perms;
 allow kernel log_device:dir rw_dir_perms;
 allow kernel log_device:chr_file rw_file_perms;
+allow kernel device:dir { remove_name };
