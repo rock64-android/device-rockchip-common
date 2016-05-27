@@ -7,3 +7,4 @@ allow surfaceflinger rga_device:chr_file rw_file_perms;
 allow surfaceflinger ipp_device:chr_file rw_file_perms;
 allow surfaceflinger sysfs:file rw_file_perms;
 #allow surfaceflinger default_prop:property_service set;
+allow surfaceflinger sysfs_lcdc:file rw_file_perms;
