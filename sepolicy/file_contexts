@@ -155,3 +155,10 @@
 
 #lcdcscale
 /sys/devices/fb.11/graphics/fb0/scale -- u:object_r:sysfs_lcdc:s0
+
+#hdmi
+/sys/devices/virtual/display/HDMI(/.*)? -- u:object_r:sysfs_hdmi:s0
+
+#for displayd
+/system/bin/displayd                 u:object_r:displayd_exec:s0
+/dev/block/mmcblk0p13                u:object_r:baseparameter_block_device:s0
