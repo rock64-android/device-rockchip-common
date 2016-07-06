@@ -75,12 +75,18 @@
 <prev package="com.android.camera2"/>
 <prev package="com.google.android.GoogleCamera"/>
 <prev package="com.cghs.stresstest"/>
+<prev package="com.android.cts.verifier"/>
 
 <next package="com.qihoo"/>
 <next package="com.dragon.android.pandaspace"/>
 <next package=".auth.gsf.AccountIntroActivity"/>
 <next package=".auth.login."/>
 <next package="com.android.systemui"/>
+
+<empty package="com.android.phone"/>
+<empty package="android.process.media"/>
+<empty package="com.cghs.stresstest"/>
+<empty package="com.android.cts.verifier"/>
 
 <hardware package="com.android.camera2"/>
 </lowmem-filter-package>
