@@ -6,3 +6,4 @@ allow shell logcat_exec:file { read getattr open execute execute_no_trans };
 allow shell serial_device:chr_file rw_file_perms;
 allow shell proc_cpuinfo:file mounton;
 allow shell surfaceflinger:fifo_file rw_file_perms;
+allow shell bootanim_exec:file getattr;

@@ -271,7 +271,10 @@ PRODUCT_PACKAGES += \
     libasound \
     alsa.default \
     acoustics.default \
-    libtinyalsa
+    libtinyalsa \
+	tinyplay \
+	tinymix \
+	tinypcminfo
 
 PRODUCT_PACKAGES += \
 	alsa.audio.primary.$(TARGET_BOARD_HARDWARE)\
@@ -284,6 +287,8 @@ $(call inherit-product-if-exists, external/alsa-utils/copy.mk)
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.visual=false \
 
+PRODUCT_COPY_FILES += \
+	device/rockchip/common/tinyplaywav:system/bin/tinyplaywav
 ifeq ($(strip $(BOARD_HAVE_BLUETOOTH)),true)
     PRODUCT_PROPERTY_OVERRIDES += ro.rk.bt_enable=true
 else

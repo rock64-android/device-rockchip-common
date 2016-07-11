@@ -17,7 +17,6 @@ on post-fs
     swapon_all /fstab.rk30board
 
 on post-fs-data
-  
     # AP6476 GPS permission
     chmod 755 /system/bin/glgps
     chown root system /system/bin/glgps
@@ -158,6 +157,19 @@ service up_eth0 /system/bin/busybox ifconfig eth0 up
     oneshot
 
 service drmservice /system/bin/drmservice
-        class main
-        oneshot
+    class main
+    oneshot
 
+service shutdownanim /system/bin/bootanimation shutdown
+    class core
+    user graphics
+    group graphics audio
+    disabled
+    oneshot
+
+service startup_rington /system/bin/tinyplaywav /system/media/audio/startup.wav 3
+    class core
+    user system
+    group graphics audio system
+    disabled
+    oneshot

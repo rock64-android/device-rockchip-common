@@ -139,6 +139,9 @@
 /system/bin/wpa_supplicant_esp  u:object_r:esp_wpa_exec:s0
 /system/vendor/bin/pvrsrvctl           u:object_r:pvrsrvctl_exec:s0
 /system/bin/drmservice                 u:object_r:drmservice_exec:s0
+/system/bin/tinyplaywav                u:object_r:tinyplaywav_exec:s0
+/system/bin/tinyplay                   u:object_r:tinyplay_exec:s0
+/system/bin/tinymix                    u:object_r:tinymix_exec:s0
 /sbin/e2fsck                           u:object_r:ext4_exec:s0
 /sbin/resize2fs                        u:object_r:ext4_exec:s0
 
