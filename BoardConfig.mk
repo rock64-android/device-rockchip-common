@@ -103,6 +103,9 @@ BOARD_SEPOLICY_DIRS ?= device/rockchip/common/sepolicy
 TARGET_NO_RECOVERY ?= false
 TARGET_ROCHCHIP_RECOVERY ?= true
 
+#for boot and shutdown animation ringing
+BOOT_SHUTDOWN_ANIMATION_RINGING := false
+
 # to flip screen in recovery 
 BOARD_HAS_FLIPPED_SCREEN ?= false
 
@@ -228,3 +231,6 @@ PLATFORM_SECURITY_PATCH := 2016-03-01
 
 # disable safe mode to speed up boot time
 BOARD_DISABLE_SAFE_MODE ?= true
+
+#for boot and shutdown animation ringing
+BOOT_SHUTDOWN_ANIMATION_RINGING ?= false
