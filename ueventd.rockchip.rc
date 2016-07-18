@@ -117,6 +117,7 @@
 /dev/i2c-3           	  0660   system   	 system
 /dev/i2c-4           	  0660   system   	 system
 
+/dev/ovr0		  0664   system          system
 #for mpu
 /dev/iio:device* 0660 system system
 /sys/devices/ff140000.i2c/i2c-1/1-0068/iio:device*      key                             0660 system system
