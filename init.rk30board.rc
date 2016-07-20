@@ -16,6 +16,9 @@ on post-fs
     # Turn on swap
     swapon_all /fstab.rk30board
 
+     # for 3288vr chip board#
+    insmod /system/lib/modules/rk_util.ko
+    insmod /system/lib/modules/rk_ovr.ko
 on post-fs-data
     # AP6476 GPS permission
     chmod 755 /system/bin/glgps
