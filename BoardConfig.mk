@@ -109,6 +109,18 @@ BOOT_SHUTDOWN_ANIMATION_RINGING := false
 # to flip screen in recovery 
 BOARD_HAS_FLIPPED_SCREEN ?= false
 
+#rotate screen to 0, 90, 180, 270
+#0:   rotate_0
+#90:  rotate_90
+#180: rotate_180
+#270: rotate_270
+ROTATE_SCREEN := rotate_0
+
+#Screen to Double, Single
+#YES: Screen to Double
+#NO: Screen to single
+DOUBLE_SCREEN := NO
+
 # Auto update package from USB
 RECOVERY_AUTO_USB_UPDATE ?= false
 
