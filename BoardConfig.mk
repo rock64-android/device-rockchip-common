@@ -178,6 +178,9 @@ BOARD_SENSOR_ST ?= true
 #BOARD_SENSOR_MPU ?= true
 #BOARD_USES_GENERIC_INVENSENSE ?= false
 
+#product has other camera except usb camera
+PRODUCT_HAS_CAMERA ?= true
+
 # readahead files to improve boot time
 # BOARD_BOOT_READAHEAD ?= true
 
