@@ -35,6 +35,10 @@ on post-fs-data
     copy /etc/ppp/pppoe.conf /data/misc/ppp/pppoe.conf
     ##$_rbox_$_modify_$_end
 
+on init
+    # set temperature control policy as normal mode
+    write /sys/module/rockchip_pm/parameters/policy 1
+
 on boot
 
     restorecon_recursive /sys/devices/system/cpu/cpufreq/interactive
