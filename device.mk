@@ -75,9 +75,7 @@ endif
 
 ifeq ($(strip $(BOARD_USE_LOW_MEM)), true)
 PRODUCT_PROPERTY_OVERRIDES += \
-	dalvik.vm.dex2oat-flags=--no-watch-dog \
-	dalvik.vm.dex2oat-filter=interpret-only \
-	dalvik.vm.image-dex2oat-filter=speed
+	dalvik.vm.dex2oat-flags=--no-watch-dog
 endif
 
 PRODUCT_COPY_FILES += \
