@@ -180,3 +180,15 @@ service startup_rington /system/bin/tinyplaywav /system/media/audio/startup.wav 
     group graphics audio system
     disabled
     oneshot
+
+on property:ro.rk.soc=rk3288
+    mount ext4 /dev/block/platform/ff0f0000.rksdmmc/by-name/system /system remount
+    rm  /system/vendor/lib/egl/libGLES_mali.so
+    symlink /system/vendor/lib/egl/rk3288/libGLES_mali.so /system/vendor/lib/egl/libGLES_mali.so
+    mount ext4 /dev/block/platform/ff0f0000.rksdmmc/by-name/system /system ro remount
+
+on property:ro.rk.soc=rk3288w
+    mount ext4 /dev/block/platform/ff0f0000.rksdmmc/by-name/system /system remount
+    rm  /system/vendor/lib/egl/libGLES_mali.so
+    symlink /system/vendor/lib/egl/rk3288w/libGLES_mali.so /system/vendor/lib/egl/libGLES_mali.so
+    mount ext4 /dev/block/platform/ff0f0000.rksdmmc/by-name/system /system ro remount
