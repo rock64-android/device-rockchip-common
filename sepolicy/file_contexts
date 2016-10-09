@@ -73,3 +73,6 @@
 
 #for vpu
 /dev/rkvdec                u:object_r:video_device:s0
+
+#for discrete vr deivce
+/system/bin/rkvrd     u:object_r:rkvrd_exec:s0
