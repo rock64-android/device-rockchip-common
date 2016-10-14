@@ -247,3 +247,12 @@ BOARD_DISABLE_SAFE_MODE ?= true
 
 #for boot and shutdown animation ringing
 BOOT_SHUTDOWN_ANIMATION_RINGING ?= false
+
+# product has follow sensors or not,if had override it in product's BoardConfig
+BOARD_GRAVITY_SENSOR_SUPPORT ?= true
+BOARD_COMPASS_SENSOR_SUPPORT ?= false
+BOARD_GYROSCOPE_SENSOR_SUPPORT ?= false
+BOARD_PROXIMITY_SENSOR_SUPPORT ?= false
+BOARD_LIGHT_SENSOR_SUPPORT ?= false
+BOARD_PRESSURE_SENSOR_SUPPORT ?= false
+BOARD_TEMPERATURE_SENSOR_SUPPORT ?= false
