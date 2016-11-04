@@ -117,6 +117,10 @@ on boot
     chown root system /sys/class/display/HDMI/mode
     chown root system /sys/class/display/HDMI/scale
 
+    chown root system /sys/class/display/HDMI1/enable
+    chown root system /sys/class/display/HDMI1/mode
+    chown root system /sys/class/display/HDMI1/scale
+
     chown root system /sys/class/graphics/fb0/bcsh
     chown root system /sys/class/graphics/fb0/dsp_lut
     chmod 0664 /sys/class/graphics/fb0/bcsh
@@ -151,6 +155,10 @@ on boot
     chmod 0664 /sys/devices/virtual/display/HDMI/enable
     chmod 0664 /sys/devices/virtual/display/HDMI/mode
     chmod 0664 /sys/devices/virtual/display/HDMI/scale
+
+    chmod 0664 /sys/devices/virtual/display/HDMI1/enable
+    chmod 0664 /sys/devices/virtual/display/HDMI1/mode
+    chmod 0664 /sys/devices/virtual/display/HDMI1/scale
   
     #add for cts
     chmod 0660 /sys/bus/platform/drivers/usb20_otg/dwc_otg_conn_en
