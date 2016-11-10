@@ -267,7 +267,7 @@ BOARD_WITH_MEM_OPTIMISE ?= false
 BOARD_FORCE_UDISK_VISIBLE ?= true
 
 # set security patch date,this date should be update if security patch apply
-PLATFORM_SECURITY_PATCH := 2016-08-05
+PLATFORM_SECURITY_PATCH := 2016-10-01
 
 # disable safe mode to speed up boot time
 BOARD_DISABLE_SAFE_MODE ?= true
