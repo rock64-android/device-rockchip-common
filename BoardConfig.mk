@@ -29,10 +29,14 @@ TARGET_BOARD_HARDWARE ?= rk30board
 ifneq ($(filter %box, $(TARGET_PRODUCT)), )
 TARGET_BOARD_PLATFORM_PRODUCT ?= box
 else
+ifneq ($(filter %stbvr, $(TARGET_PRODUCT)), )
+TARGET_BOARD_PLATFORM_PRODUCT ?= stbvr
+else
 ifneq ($(filter %vr, $(TARGET_PRODUCT)), )
 TARGET_BOARD_PLATFORM_PRODUCT ?= vr
 else
 TARGET_BOARD_PLATFORM_PRODUCT ?= tablet
+endif
 endif
 endif
 
@@ -114,7 +118,8 @@ DEVICE_PACKAGE_OVERLAYS += device/rockchip/common/overlay_screenoff
 ADDITIONAL_DEFAULT_PROPERTIES += \
 	ro.target.product=box
 else
-ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),vr)
+#ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),vr)
+ifneq ($(filter vr stbvr, $(TARGET_BOARD_PLATFORM_PRODUCT)), )
   ADDITIONAL_DEFAULT_PROPERTIES += \
         ro.target.product=vr
 else
