@@ -115,7 +115,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_SERVER_JARS += \
     pppoe-service
 
-ifneq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
+ifeq ($(filter box stbvr, $(TARGET_BOARD_PLATFORM_PRODUCT)), )
 PRODUCT_PROPERTY_OVERRIDES += \
        net.pppoe.cts=true
 else
@@ -344,6 +344,11 @@ endif
 
 #$_rbox_$_modify_$_zhengyang: add displayd
 ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
+PRODUCT_PACKAGES += \
+    displayd
+endif
+
+ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), stbvr)
 PRODUCT_PACKAGES += \
     displayd
 endif
