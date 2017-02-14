@@ -570,6 +570,11 @@ PRODUCT_COPY_FILES += \
        device/rockchip/common/lowmem_package_filter.xml:system/etc/lowmem_package_filter.xml 
 endif
 
+ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), stbvr)
+PRODUCT_COPY_FILES += \
+       device/rockchip/common/lowmem_package_filter.xml:system/etc/lowmem_package_filter.xml
+endif
+
 #if force app can see udisk
 ifeq ($(strip $(BOARD_FORCE_UDISK_VISIBLE)),true)
 PRODUCT_PROPERTY_OVERRIDES += \
