@@ -62,7 +62,7 @@
 <game package="com.tencent.qqlive"/>
 
 <prev package="com.android.launcher"/>
-<prev package="com.rk_itvui.allapp"/>
+<prev package="com.rockchip.itvbox"/>
 <prev package="com.google.android.launcher"/>
 <prev package="com.rockchip.vr.home"/>
 <prev package="com.android.settings"/>
