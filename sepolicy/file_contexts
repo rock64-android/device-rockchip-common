@@ -76,3 +76,6 @@
 
 #for discrete vr deivce
 /system/bin/rkvrd     u:object_r:rkvrd_exec:s0
+
+#for bd
+/system/bin/iso                 u:object_r:iso_exec:s0
