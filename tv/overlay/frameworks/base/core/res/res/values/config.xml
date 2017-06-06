@@ -58,6 +58,6 @@
     <string translatable="false" name="config_tvRemoteServicePackage">com.google.android.tv.remote.service</string>
 
     <!-- True if WallpaperService is enabled -->
-    <bool name="config_enableWallpaperService">false</bool>
+    <bool name="config_enableWallpaperService">true</bool>
 
 </resources>
