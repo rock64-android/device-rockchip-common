@@ -70,6 +70,13 @@ fi
 
 source build/envsetup.sh >/dev/null && setpaths
 lunch $LUNCH
+if [ $? -eq 0 ]; then
+    echo "Lunch ok!"
+else
+    echo "Lunch failed!"
+    exit 1
+fi
+
 TARGET_PRODUCT=`get_build_var TARGET_PRODUCT`
 
 #set jdk version
