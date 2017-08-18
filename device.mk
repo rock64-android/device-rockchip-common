@@ -694,3 +694,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.rk.hdmi_enable=true   \
     sys.status.hidebar_enable=false   \
     persist.sys.ui.hw=true
+
+#public.libraries.txt
+PRODUCT_COPY_FILES += \
+	device/rockchip/common/public.libraries.vendor.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
