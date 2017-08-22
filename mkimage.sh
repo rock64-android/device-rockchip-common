@@ -216,6 +216,15 @@ else
 	fi
 fi
 
+if [ -f $UBOOT_PATH/idbloader.img ]
+then
+        echo -n "create idbloader.img..."
+        cp -a $UBOOT_PATH/idbloader.img $IMAGE_PATH/idbloader.img
+        echo "done."
+else
+        echo "$UBOOT_PATH/idbloader.img not found!"
+fi
+
 if [ -f $KERNEL_PATH/resource.img ]
 then
         echo -n "create resource.img..."
